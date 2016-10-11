@@ -1,0 +1,31 @@
+{
+  "name": "online-delivery-front",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "react-scripts": "0.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.14.0",
+    "lodash": "^4.15.0",
+    "material-ui": "^0.15.4",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-geosuggest": "^1.25.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.6.1",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.5.2",
+    "redux-form": "^6.0.2",
+    "redux-form-material-ui": "^4.0.1",
+    "redux-promise": "^0.5.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
+  }
+}
