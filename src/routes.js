@@ -1,23 +1,18 @@
-import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import React from 'react'
+import { Route, IndexRoute } from 'react-router'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { StyleRoot, } from 'radium'
+import Landing from './view/landing/Landing'
+import AppWrapper from './global_ui/AppWrapper'
 
-import App from './App';
-import Landing from './pages/Landing';
-import RestaurantsList from './pages/RestaurantsList';
-import Restaurant from './pages/Restaurant'
-import Categories from './pages/Categories'
-import Checkout from './pages/Checkout'
-import Register from './pages/Register'
-import SignIn from './pages/SignIn'
+const Routes = (
+  <MuiThemeProvider>
+    <StyleRoot>
+      <Route path="/" component={AppWrapper}>
+        <IndexRoute component={Landing} />
+      </Route>
+    </StyleRoot>
+  </MuiThemeProvider>
+)
 
-export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={Landing} />
-    <Route path="/categories" component={Categories} />
-    <Route path="/restaurants" component={RestaurantsList} />
-    <Route path="/restaurants/:id" component={Restaurant} />
-    <Route path="/checkout" component={Checkout} />  
-    <Route path="/register" component={Register} />   
-    <Route path="/signin" component={SignIn} />   
-  </Route>
-);
+export default Routes

@@ -1,14 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
-import configureStore from './store/configureStore.js';
+import React from 'react'
+import { render, } from 'react-dom'
+import { Router, browserHistory, } from 'react-router'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import Routes from './Routes'
+import store from './store'
+import { Provider, } from 'react-redux'
+import { syncHistoryWithStore, } from 'react-router-redux'
 
-const store = configureStore();
+injectTapEventPlugin()
 
-ReactDOM.render(
+const history = syncHistoryWithStore(browserHistory, store)
+
+render(
   <Provider store={store}>
-    <Router history={browserHistory} routes={routes} />
+    <Router history={history}>
+      {Routes}
+    </Router>
   </Provider>
-  , document.getElementById('root'));
+  , document.getElementById('app'))
