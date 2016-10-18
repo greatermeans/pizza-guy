@@ -65,6 +65,4 @@ class AppWrapper extends Component {
   }
 }
 
-
-
 export default connect(null, null)(AppWrapper)

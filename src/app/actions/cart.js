@@ -1,21 +1,29 @@
-export function addItem(item) {
-  return {
-    type: 'ADD_ITEM',
-    payload: item
-  }
-}
+import A from '../const/actionTypes'
 
-export function changeQuantity({item, quantity}) {
-  return {
-    type: 'CHANGE_QUANTITY',
-    item,
-    quantity
-  }
-}
-
-export function removeItem(item) {
-  return {
-    type: 'REMOVE_ITEM',
-    payload: item
-  }
+export default {
+  addItem: (item) => {
+    return (dispatch, getState) => {
+      dispatch({
+        type: A.ADD_ITEM,
+        item
+      })
+    }
+  },
+  changeQuantity: ({item, quantity}) => {
+    return (dispatch, getState) => {
+      dispatch({
+        type: A.CHANGE_QUANTITY,
+        item,
+        quantity
+      })
+    }
+  },
+  removeItem: (item) => {
+    return (dispatch, getState) => {
+      dispatch({
+        type: A.REMOVE_ITEM,
+        item
+      })
+    }
+  },
 }

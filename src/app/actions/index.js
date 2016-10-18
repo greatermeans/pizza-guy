@@ -1,8 +1,8 @@
-const globalConfig = {
-	API: `http://localhost:3000`,
-	header: {
-		headers: {Authorization: sessionStorage.jwtToken}
-	}
-}
+import cartActions from './cart'
+import restaurantActions from './restaurant'
 
-export default globalConfig
+export default Object.assign(
+  {},
+  cartActions,
+  restaurantActions,
+)
