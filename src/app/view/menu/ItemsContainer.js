@@ -21,7 +21,7 @@ class ItemsContainer extends Component {
   render() {
     const { restaurant, activeCourse } = this.props.activeRestaurant
     var relevantItems
-    
+
     if (restaurant) {
       if (activeCourse.name === 'featured') {
         relevantItems = restaurant.items.filter(item => {
