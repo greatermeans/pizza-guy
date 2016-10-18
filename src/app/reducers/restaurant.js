@@ -1,4 +1,5 @@
 import A from '../const/actionTypes'
+import initialState from '../store/initialState'
 
 export default function (currentState, action) {
 
@@ -28,6 +29,6 @@ export default function (currentState, action) {
         loading: false
       }
     default:
-      return currentState
+      return currentState || initialState.restaurant
   }
 }
