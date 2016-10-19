@@ -11,25 +11,25 @@ class CartContainer extends Component {
 
   handleQuantity(event) {
     event.preventDefault()
-    var { cart, changeQuantity } = this.props
-    var { parentElement, value } = event.target
-    var quantity = parseInt(value)
-    var itemId = parseInt(parentElement.dataset.id)
-    var item = cart.find(item => item.id === itemId)
+    let { cart, changeQuantity } = this.props
+    let { parentElement, value } = event.target
+    let quantity = parseInt(value)
+    let itemId = parseInt(parentElement.dataset.id)
+    let item = cart.find(item => item.id === itemId)
     changeQuantity({item, quantity})
   }
 
   handleRemove(event) {
     event.preventDefault()
-    var { cart, removeItem } = this.props
-    var itemId = parseInt(event.target.parentElement.dataset.id) // CODE IS REUSED, REFACTOR
-    var item = cart.find(item => item.id === itemId)
+    let { cart, removeItem } = this.props
+    let itemId = parseInt(event.target.parentElement.dataset.id) // CODE IS REUSED, REFACTOR
+    let item = cart.find(item => item.id === itemId)
     removeItem(item)
   }
 
   render() {
-    var { cart } = this.props
-    var cartItems = cart.map(item => {
+    let { cart } = this.props
+    let cartItems = cart.map(item => {
       return (
         <CartItem
           {...item}
@@ -38,7 +38,7 @@ class CartContainer extends Component {
         />
       )
     })
-    var total = _.sum(cart.map(item => item.price*item.quantity))
+    let total = _.sum(cart.map(item => item.price*item.quantity))
 
     return (
       <div>

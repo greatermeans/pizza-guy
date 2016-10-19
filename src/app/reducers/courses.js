@@ -1,15 +1,14 @@
-import A from '../const/actionTypes'
 import initialState from '../store/initialState'
+import A from '../const/actionTypes'
 
 export default function (currentState, action) {
-
   switch (action.type) {
-    case A.FETCH_RESTAURANT:
+    case A.CACHE_COURSES:
       return {
         ...currentState,
-        restaurant: action.restaurantDetails
+        courses: action.courses
       }
     default:
-      return currentState || initialState.restaurant
+      return currentState || initialState.selectedCourse
   }
 }

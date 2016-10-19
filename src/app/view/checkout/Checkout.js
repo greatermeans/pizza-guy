@@ -13,7 +13,7 @@ export default class Checkout extends Component {
   	if (this.props.cart.length > 1) {
   		return (
   			<div>	
-		  		<h2> There are no items in your cart. </h2>
+		  		<h2> There are no menuItems in your cart. </h2>
 		  		<h4><Link to={'/'}>Click Here to get some Grub!</Link></h4>
   			</div>
   		)

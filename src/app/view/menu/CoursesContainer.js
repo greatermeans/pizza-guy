@@ -8,13 +8,13 @@ class CoursesContainer extends Component {
 
   handleClick(event) {
     event.preventDefault()
-    var courseName = event.target.dataset.course
-    var activeCourse = this.props.activeRestaurant.restaurant.courses.find(course => course.name === courseName)
+    let courseName = event.target.dataset.course
+    let activeCourse = this.props.activeRestaurant.restaurant.courses.find(course => course.name === courseName)
     this.props.changeActiveCourse(activeCourse)
   }
 
   render() {
-    var { restaurant } = this.props.activeRestaurant
+    let { restaurant } = this.props.activeRestaurant
     if (restaurant) {
       return (
         <div>{restaurant.courses.map(course => {

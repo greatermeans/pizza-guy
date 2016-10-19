@@ -4,12 +4,12 @@ import initialState from '../store/initialState'
 export default function (currentState, action) {
 
   switch (action.type) {
-    case A.FETCH_RESTAURANT:
+    case A.CHECK_DELIVERY_ZONE:
       return {
         ...currentState,
-        restaurant: action.restaurantDetails
+        deliverable: action.deliverable
       }
     default:
-      return currentState || initialState.restaurant
+      return currentState || initialState.user
   }
 }

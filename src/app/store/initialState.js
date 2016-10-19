@@ -1,4 +1,8 @@
 export default {
   cart: [],
-  restaurant: {}
+  courses: [],
+  menuItems: [],
+  restaurant: {},
+  selectedCourse: null,
+  user: {},
 }
