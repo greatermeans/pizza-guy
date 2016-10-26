@@ -27,7 +27,7 @@ const config = {
     devtool: 'eval',
     hot: true, // Live-reload
     inline: true,
-    port: 3000, // Port Number
+    port: 3001, // Port Number
     host: 'localhost', // Change to '0.0.0.0' for external facing server,
     // Set this as true if you want to access dev server from arbitrary url.
     // This is handy if you are using a html5 router.
