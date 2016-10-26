@@ -6,7 +6,7 @@ export default {
   checkDeliveryZone: (addressValues) => {
     return (dispatch, getState) => {
       let address = addressValues.gmaps.formatted_address
-      let deliverable = axios.post(`${globalConfig.ROOT_URL}/check_if_deliverable`, {address: address})
+      let deliverable = axios.post(`${globalConfig.API}/check_if_deliverable`, {address: address})
       dispatch({
         type: A.CHECK_DELIVERY_ZONE,
         deliverable

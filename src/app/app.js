@@ -11,7 +11,7 @@ import { syncHistoryWithStore, } from 'react-router-redux'
 injectTapEventPlugin()
 
 function initApp() {
-  store.dispatch(actions.fetchRestaurant(2))
+  store.dispatch(actions.fetchRestaurant('Pizza Guy'))
 }
 
 window.onload = function () {
