@@ -1,13 +1,6 @@
 import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
-import AppBar from 'material-ui/AppBar'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-
-const styles = {
-  appBar: {
-    position: 'fixed',
-  },
-}
 
 class AppWrapper extends Component {
   static propTypes = {
@@ -50,16 +43,9 @@ class AppWrapper extends Component {
   render() {
     return (
       <div>
-        <AppBar
-          title={'Hello'}
-          showMenuIconButton={false}
-          style={styles.appBar}
-        />
-        <div>
-          {React.cloneElement(this.props.children, {
-            onChangeMuiTheme: this.handleChangeMuiTheme,
-          })}
-        </div>
+        {React.cloneElement(this.props.children, {
+          onChangeMuiTheme: this.handleChangeMuiTheme,
+        })}
       </div>
     )
   }

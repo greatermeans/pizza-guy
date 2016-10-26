@@ -27,6 +27,7 @@
   "dependencies": {
     "@google/maps": "^0.3.0",
     "axios": "^0.14.0",
+    "css-loader": "^0.25.0",
     "dotenv": "^2.0.0",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.22.0",
@@ -47,6 +48,7 @@
     "redux-form-material-ui": "^4.0.1",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
+    "style-loader": "^0.13.1",
     "transfer-webpack-plugin": "^0.1.4",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2",
