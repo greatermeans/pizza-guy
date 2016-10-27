@@ -1,4 +1,6 @@
 import A from '../const/actionTypes'
+import store from '../store'
+import { push } from 'react-router-redux'
 
 export default {
   checkDeliveryZone: (addressValues) => {
@@ -16,6 +18,7 @@ export default {
           type: A.CHECK_DELIVERY_ZONE,
           deliverable
         })
+        store.dispatch(push('/menu'))
       })
     }
   },
