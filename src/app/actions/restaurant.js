@@ -13,6 +13,23 @@ export default {
           data
         })
       })
+      let config = { headers: {restaurant: restaurantId} }
+      axios.get(`${globalConfig.API}/courses`, config)
+      .then((response) => {
+        let data = response.data
+        dispatch({
+          type: A.CACHE_COURSES,
+          data
+        })
+      })
+      axios.get(`${globalConfig.API}/items`, config)
+      .then((response) => {
+        let data = response.data
+        dispatch({
+          type: A.CACHE_MENU_ITEMS,
+          data
+        })
+      })
     }
   },
 }

@@ -6,7 +6,7 @@ export default function (currentState, action) {
     case A.CACHE_MENU_ITEMS:
       return {
         ...currentState,
-        menuItems: action.menuItems
+        ...action.data
       }
     default:
       return currentState || initialState.selectedCourse

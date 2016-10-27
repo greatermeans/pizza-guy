@@ -6,7 +6,7 @@ export default function (currentState, action) {
     case A.CACHE_COURSES:
       return {
         ...currentState,
-        courses: action.courses
+        ...action.data
       }
     default:
       return currentState || initialState.selectedCourse

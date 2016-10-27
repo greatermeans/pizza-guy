@@ -16,7 +16,6 @@ export default {
           type: A.CHECK_DELIVERY_ZONE,
           deliverable
         })
-        debugger
       })
     }
   },
