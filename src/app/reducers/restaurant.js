@@ -7,7 +7,7 @@ export default function (currentState, action) {
     case A.FETCH_RESTAURANT:
       return {
         ...currentState,
-        restaurant: action.restaurantDetails
+        ...action.data
       }
     default:
       return currentState || initialState.restaurant
