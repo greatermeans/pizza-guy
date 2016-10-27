@@ -1,6 +1,4 @@
-import axios from 'axios'
 import A from '../const/actionTypes'
-import globalConfig from '../const/globalConfig'
 
 export default {
   checkDeliveryZone: (addressValues) => {
@@ -13,11 +11,12 @@ export default {
         travelMode: 'DRIVING'
       }, (response) => {
         let distance = response.rows[0].elements[0].distance.value
-        let deliverable = distance < 20000 ? true : false
+        let deliverable = distance < 20000
         dispatch({
           type: A.CHECK_DELIVERY_ZONE,
           deliverable
         })
+        debugger
       })
     }
   },
