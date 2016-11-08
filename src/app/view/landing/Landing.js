@@ -7,17 +7,9 @@ import actions from '../../actions'
 class Landing extends Component {
 
   render() {
-    const { checkDeliveryZone } = this.props
     return (
       <div id="container">
-      <h1>The Delivery Team</h1>
-      <h2 className="subheader">Who Delivers in Your Neighborhood?</h2>
-      <Geosuggest
-        placeholder="Street Address, City, Country"
-        onSuggestSelect={checkDeliveryZone}
-        location={new google.maps.LatLng(62.2315, 16.1932)}
-        country="SE"
-        radius="1000" />
+
       </div>
     )
   }

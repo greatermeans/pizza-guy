@@ -1,7 +1,8 @@
 import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { Tabs, Tab } from 'material-ui/Tabs'
+import { Tabs, Tab, Paper } from 'material-ui'
+import store from '../store'
 import actions from '../actions'
 
 class AppWrapper extends Component {
@@ -43,12 +44,15 @@ class AppWrapper extends Component {
   }
 
   handleActiveTab({props}) {
-    actions.changePath(props['data-route'])
+    store.dispatch(actions.changePath(props['data-route']))
   }
 
   render() {
     return (
       <div style={styles.main}>
+        <Paper style={styles.paper} zDepth={1} rounded={false}>
+        <img style={styles.car} src={'/images/front-side.png'}/>
+        </Paper>
         <Tabs>
           <Tab
             label="Home"
@@ -80,10 +84,16 @@ class AppWrapper extends Component {
 }
 
 const styles = {
+  car: {
+    width: 150,
+    height: 'auto',
+  },
   main: {
   },
-  appBar: {
-    backgroundColor: null
+  paper: {
+    height: '100%',
+    width: '100%',
+    textAlign: 'center',
   }
 }
 

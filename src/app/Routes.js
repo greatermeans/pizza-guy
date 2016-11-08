@@ -11,7 +11,7 @@ const Routes = (
     <StyleRoot>
       <Route path="/" component={AppWrapper}>
         <IndexRoute component={Landing} />
-        <Route path='/order' component={MenuView} />
+        <Route path="/order" component={MenuView} />
       </Route>
     </StyleRoot>
   </MuiThemeProvider>
