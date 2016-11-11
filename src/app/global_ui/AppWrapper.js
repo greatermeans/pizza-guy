@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { Tabs, Tab, Paper } from 'material-ui'
+import { Tabs, Tab, Paper, RaisedButton } from 'material-ui'
 import store from '../store'
 import actions from '../actions'
 
@@ -51,30 +51,9 @@ class AppWrapper extends Component {
     return (
       <div style={styles.main}>
         <Paper style={styles.paper} zDepth={1} rounded={false}>
-        <img style={styles.car} src={'/images/front-side.png'}/>
+          <img style={styles.logo} src={'/images/pizzaguy-logo.png'}/>
+          <RaisedButton label="Sign Up" primary={true} style={styles.signup} />
         </Paper>
-        <Tabs>
-          <Tab
-            label="Home"
-            data-route="/"
-            onActive={this.handleActiveTab.bind(this)}
-          />
-          <Tab
-            label="Order Online"
-            data-route="/order"
-            onActive={this.handleActiveTab.bind(this)}
-          />
-          <Tab
-            label="Menu"
-            data-route="/menu"
-            onActive={this.handleActiveTab.bind(this)}
-          />
-          <Tab
-            label="About Us"
-            data-route="/about"
-            onActive={this.handleActiveTab.bind(this)}
-          />
-        </Tabs>
         {React.cloneElement(this.props.children, {
           onChangeMuiTheme: this.handleChangeMuiTheme,
         })}
@@ -84,16 +63,26 @@ class AppWrapper extends Component {
 }
 
 const styles = {
-  car: {
-    width: 150,
+  logo: {
+    width: 75,
     height: 'auto',
+    float: 'left',
+    margin: 5,
+    marginLeft: 20
   },
   main: {
   },
   paper: {
-    height: '100%',
+    height: 80,
     width: '100%',
     textAlign: 'center',
+  },
+  signup: {
+    margin: 20,
+    float: 'right',
+  },
+  white: {
+    width: '80%'
   }
 }
 
