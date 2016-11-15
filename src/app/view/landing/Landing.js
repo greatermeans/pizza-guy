@@ -1,24 +1,13 @@
 import React, { Component } from 'react'
-import Geosuggest from 'react-geosuggest'
 import { connect } from 'react-redux'
-import { checkDeliveryZone } from '../../actions/restaurant'
-import actions from '../../actions'
-import { Paper } from 'material-ui'
-import GoogleMap from 'google-map-react'
-import Marker from './Marker'
-import MenuView from '../menu/MenuView'
+import MapView from './MapView'
 
 class Landing extends Component {
 
   render() {
     return (
       <div>
-        <Paper style={styles.paper} zDepth={1} rounded={false}>
-          Hello World
-          <GoogleMap styles={styles.map} center={{lat: 59.6205245, lng: 17.843808}} zoom={12}>
-            <Marker lat={59.6205245} lng={17.843808} />
-          </GoogleMap>
-        </Paper>
+        <MapView />
       </div>
     )
   }
@@ -26,8 +15,11 @@ class Landing extends Component {
 
 const styles = {
   map: {
-
+    height: 220,
+    width: 300,
+    position: ''
   },
+
   nothing: {
 
   },
@@ -47,7 +39,6 @@ const styles = {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkDeliveryZone: (address) => dispatch(actions.checkDeliveryZone(address))
   }
 }
 

@@ -4,5 +4,5 @@ export default {
   menuItems: [],
   restaurant: {},
   selectedCourse: null,
-  user: {},
+  user: {deliverable: null},
 }

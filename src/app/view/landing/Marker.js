@@ -1,4 +1,4 @@
-import React, { Component, } from 'react'
+import React from 'react'
 import PizzaIcon from 'material-ui/svg-icons/maps/local-pizza'
 
 const styles = {
@@ -13,16 +13,12 @@ const styles = {
   }
 }
 
-export default class Marker extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <span style={styles.marker}>
-        <PizzaIcon style={styles.image}/>
-      </span>
-    )
-  }
+const Marker = () => {
+  return (
+    <span style={styles.marker}>
+      <PizzaIcon style={styles.image}/>
+    </span>
+  )
 }
+
+export default Marker

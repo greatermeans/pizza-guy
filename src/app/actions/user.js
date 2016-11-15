@@ -11,7 +11,7 @@ export default {
         destinations: ['Fagelvagen 13, Marsta, Sweden'],
         travelMode: 'DRIVING'
       }, (response) => {
-        let distance = response.rows[0].elements[0].distance.value
+        let distance = response.rows[0].elements[0].distance && response.rows[0].elements[0].distance.value
         let deliverable = distance < 20000
         dispatch({
           type: A.CHECK_DELIVERY_ZONE,

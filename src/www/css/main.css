@@ -81,11 +81,10 @@ h1 {
  * The geosuggest module
  */
 .geosuggest {
-  font-size: 18px;
-  font-size: 1rem;
+  font-size: 10px;
   position: relative;
-  width: 50%;
-  margin: 1em auto;
+  width: 80%;
+  margin: 12px;
   text-align: left;
 }
 .geosuggest__input {
