@@ -7,7 +7,7 @@ export default class MenuItemList extends Component {
 
   render() {
     let { menuItems, onChangeList, defaultValue } = this.props
-    debugger
+
     return (
       <SelectableList defaultValue={defaultValue} style={styles.list} onChange={onChangeList}>
       {
