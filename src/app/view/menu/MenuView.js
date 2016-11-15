@@ -1,32 +1,63 @@
 import React, { Component } from 'react'
-import Geosuggest from 'react-geosuggest'
 import { connect } from 'react-redux'
-import { checkDeliveryZone } from '../../actions/restaurant'
 import actions from '../../actions'
+import CourseList from './CourseList'
+import MenuItemList from './MenuItemList'
 
 class MenuView extends Component {
+  handleChangeList = (event, value) => {
+    this.props.selectCourse(value)
+  }
+
+  handleItemSelection = (event, value) => {
+    this.props.selectItem(value)
+  }
 
   render() {
-    const { checkDeliveryZone } = this.props
+    let { courses, menuItems, selectedCourse, } = this.props
+    let menuItemsForSelectedCourse = menuItems.filter(item => item.course_id === selectedCourse)
+
     return (
       <div id="container">
-        <h1>Check if We Deliver!</h1>
-        <Geosuggest
-          placeholder="Street Address, City, Country"
-          onSuggestSelect={checkDeliveryZone}
-          location={new google.maps.LatLng(62.2315, 16.1932)}
-          country="SE"
-          radius="1000"
+        <CourseList
+          courses={courses}
+          onChangeList={this.handleChangeList}
+          defaultValue={selectedCourse}
+          style={styles.courseList}
+        />
+        <MenuItemList
+          menuItems={menuItemsForSelectedCourse}
+          onChangeList={this.handleItemSelection}
+          defaultValue={menuItemsForSelectedCourse[0] && menuItemsForSelectedCourse[0].id || 1}
+          style={styles.itemList}
         />
       </div>
     )
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const styles = {
+  courseList: {
+    float: 'left'
+  },
+  itemList: {
+    float: 'right'
+  },
+}
+
+const mapStateToProps = (state) => {
   return {
-    checkDeliveryZone: (address) => dispatch(actions.checkDeliveryZone(address))
+    courses: state.courses,
+    menuItems: state.menuItems,
+    selectedCourse: state.selectedCourse
   }
 }
 
-export default connect(null, mapDispatchToProps)(MenuView)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    selectCourse: (id) => dispatch(actions.selectCourse(id)),
+    selectItem: (id) => dispatch(actions.selectItem(id)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuView)
