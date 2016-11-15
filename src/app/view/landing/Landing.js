@@ -13,17 +13,18 @@ class Landing extends Component {
     return (
       <div>
         <Paper style={styles.mapPaper} zDepth={1} rounded={false}>
-          <div>
+          Hello WOrld
+          <div style={styles.map}>
             <GoogleMap
-              // style={styles.map}
               center={{lat: 59.6205245, lng: 17.843808}}
               zoom={12}
-            />
+            >
+              <Marker
+                lat={59.6205245}
+                lng={17.843808}
+              />
+            </GoogleMap>
           </div>
-          <Marker
-            lat={59.6205245}
-            lng={17.843808}
-          />
         </Paper>
       </div>
     )
@@ -32,8 +33,12 @@ class Landing extends Component {
 
 const styles = {
   map: {
-    height: 50,
-    width: 50
+    margin: 20,
+    width: 200,
+    height: 'auto'
+  },
+  nothing: {
+
   },
   mapPaper: {
     height: 300,

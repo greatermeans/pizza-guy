@@ -1,9 +1,10 @@
 import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { Tabs, Tab, Paper, RaisedButton } from 'material-ui'
+import { Paper, RaisedButton } from 'material-ui'
 import store from '../store'
 import actions from '../actions'
+import ShoppingBasket from 'material-ui/svg-icons/action/shopping-basket'
 
 class AppWrapper extends Component {
   static propTypes = {
@@ -52,13 +53,14 @@ class AppWrapper extends Component {
       <div style={styles.main}>
         <Paper style={styles.header} zDepth={1} rounded={false}>
           <img style={styles.logo} src={'/images/pizzaguy-logo.png'}/>
-          <RaisedButton label="Sign Up" primary={true} style={styles.signup} />
-          <RaisedButton label="Log In" primary={true} style={styles.login}/>
+          <ShoppingBasket style={styles.basket}/>
+          <RaisedButton label="Sign Up" primary style={styles.signup} />
+          <RaisedButton label="Log In" primary style={styles.login}/>
         </Paper>
         {React.cloneElement(this.props.children, {
           onChangeMuiTheme: this.handleChangeMuiTheme,
         })}
-        <Paper className='footer' style={styles.footer} rounded={false} zDepth={1}>
+        <Paper style={styles.footer} rounded={false} zDepth={1}>
           <div style={styles.footText}>
             hello
           </div>
@@ -69,6 +71,14 @@ class AppWrapper extends Component {
 }
 
 const styles = {
+  basket: {
+    marginTop: 16,
+    marginRight: 20,
+    float: 'right',
+    width: 45,
+    height: 'auto',
+    cursor: 'pointer'
+  },
   footer: {
     backgroundColor: 'black',
     height: 40,
