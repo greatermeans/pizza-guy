@@ -12,5 +12,13 @@ export default {
         menuItems
       })
     }
+  },
+  selectItem: (itemId) => {
+    return (dispatch, getState) => {
+      dispatch({
+        type: A.ADD_ITEM,
+        itemId
+      })
+    }
   }
 }

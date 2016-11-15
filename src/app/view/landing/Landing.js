@@ -14,7 +14,7 @@ class Landing extends Component {
     return (
       <div>
         <Paper style={styles.menu} zDepth={3} rounded >
-          <MenuView  />
+          <MenuView />
         </Paper>
         <Paper style={styles.mapPaper} zDepth={1} rounded={false}>
           <div style={styles.map}>
@@ -49,8 +49,9 @@ const styles = {
   menu: {
     width: 1000,
     height: 600,
-    margin: 15,
-    float: 'left'
+    margin: 30,
+    float: 'left',
+    textAlign: 'left'
   },
 }
 

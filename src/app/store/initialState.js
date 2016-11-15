@@ -3,6 +3,6 @@ export default {
   courses: [],
   menuItems: [],
   restaurant: {},
-  selectedCourse: null,
+  selectedCourse: 41,
   user: {},
 }

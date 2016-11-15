@@ -1,7 +1,7 @@
 import A from '../const/actionTypes'
 
 export default {
-  selectedCourse: (courseId) => {
+  selectCourse: (courseId) => {
     return (dispatch, getState) => {
       dispatch({
         type: A.UPDATED_SELECTED_COURSE,
