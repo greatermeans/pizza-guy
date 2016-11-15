@@ -6,14 +6,17 @@ import actions from '../../actions'
 import { Paper } from 'material-ui'
 import GoogleMap from 'google-map-react'
 import Marker from './Marker'
+import MenuView from '../menu/MenuView'
 
 class Landing extends Component {
 
   render() {
     return (
       <div>
+        <Paper style={styles.menu} zDepth={3} rounded >
+          <MenuView  />
+        </Paper>
         <Paper style={styles.mapPaper} zDepth={1} rounded={false}>
-          Hello WOrld
           <div style={styles.map}>
             <GoogleMap
               center={{lat: 59.6205245, lng: 17.843808}}
@@ -37,13 +40,17 @@ const styles = {
     width: 200,
     height: 'auto'
   },
-  nothing: {
-
-  },
   mapPaper: {
     height: 300,
     width: 300,
     textAlign: 'center',
+    float: 'right'
+  },
+  menu: {
+    width: 1000,
+    height: 600,
+    margin: 15,
+    float: 'left'
   },
 }
 
