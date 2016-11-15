@@ -6,6 +6,7 @@ import actions from '../../actions'
 import { Paper } from 'material-ui'
 import GoogleMap from 'google-map-react'
 import Marker from './Marker'
+import MenuView from '../menu/MenuView'
 
 class Landing extends Component {
 
@@ -34,6 +35,13 @@ const styles = {
     height: 300,
     width: 300,
     textAlign: 'center',
+    float: 'right'
+  },
+  menu: {
+    width: 1000,
+    height: 600,
+    margin: 15,
+    float: 'left'
   },
 }
 
