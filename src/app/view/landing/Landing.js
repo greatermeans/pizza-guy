@@ -8,10 +8,8 @@ class Landing extends Component {
 
   render() {
     return (
-      <div>
-        <Paper style={styles.menu} zDepth={3} rounded >
-          <MenuView />
-        </Paper>
+      <div style={styles.container}>
+        <MenuView />
         <MapView />
       </div>
     )
@@ -19,28 +17,9 @@ class Landing extends Component {
 }
 
 const styles = {
-  map: {
-    height: 220,
-    width: 300,
-    position: ''
-  },
-
-  nothing: {
-
-  },
-  paper: {
-    height: 300,
-    width: 300,
-    textAlign: 'center',
-    float: 'right'
-  },
-  menu: {
-    width: 1000,
-    height: 600,
-    margin: 30,
-    float: 'left',
-    textAlign: 'left'
-  },
+  container: {
+    display: 'flex'
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

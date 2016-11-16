@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import actions from '../../actions'
 import CourseList from './CourseList'
 import MenuItemList from './MenuItemList'
+import { Paper } from 'material-ui'
 
 class MenuView extends Component {
   handleChangeList = (event, value) => {
@@ -18,7 +19,7 @@ class MenuView extends Component {
     let menuItemsForSelectedCourse = menuItems.filter(item => item.course_id === selectedCourse)
 
     return (
-      <div id="container">
+      <Paper style={styles.menu} zDepth={3} rounded >
         <CourseList
           courses={courses}
           onChangeList={this.handleChangeList}
@@ -31,17 +32,25 @@ class MenuView extends Component {
           defaultValue={menuItemsForSelectedCourse[0] && menuItemsForSelectedCourse[0].id || 1}
           style={styles.itemList}
         />
-      </div>
+      </Paper>
     )
   }
 }
 
 const styles = {
   courseList: {
-    float: 'left'
+    flex: 3
   },
   itemList: {
-    float: 'right'
+    flex: 5,
+  },
+  menu: {
+    display: 'flex',
+    width: 1000,
+    height: 500,
+    margin: 30,
+    flex: 6,
+    textAlign: 'left'
   },
 }
 

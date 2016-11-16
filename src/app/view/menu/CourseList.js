@@ -59,6 +59,7 @@ export default class CourseList extends Component {
                 primaryText={name}
                 leftIcon={<ContentInbox key={id} />}
                 style={styles.listItem}
+                innerDivStyle={styles.innerDiv}
               />
             )
           })
@@ -70,10 +71,15 @@ export default class CourseList extends Component {
 }
 
 const styles = {
+  innerDiv: {
+    paddingLeft: 50,
+    paddingTop: 14,
+    paddingBottom: 14
+  },
   list: {
   },
   listItem: {
-    fontSize: 20,
-    lineHeight: 1,
+    fontSize: 16,
+    lineHeight: 1.25,
   },
 }

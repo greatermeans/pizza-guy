@@ -12,10 +12,11 @@ const styles = {
   }
 }
 
+let text = {header: '', subheader: ''}
+
 const EnterAddress = ({checkDeliveryZone, deliverable}) => {
 
   let changeHeader = (deliverable) => {
-    let text = {header: '', subheader: ''}
     if (deliverable === false) {
       text.header = 'Sorry, we don\'t deliver to you.'
       text.subheader = 'You can still order for takeout!'

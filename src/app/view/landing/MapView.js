@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import Geosuggest from 'react-geosuggest'
 import { connect } from 'react-redux'
 import { checkDeliveryZone } from '../../actions/restaurant'
 import actions from '../../actions'
 import { Paper } from 'material-ui'
 import GoogleMap from 'google-map-react'
 import Marker from './Marker'
-import MenuView from '../menu/MenuView'
 import EnterAddress from './EnterAddress'
 
 class MapView extends Component {
 
   render() {
-    var { checkDeliveryZone, deliverable } = this.props
+    let { checkDeliveryZone, deliverable } = this.props
     return (
       <Paper style={styles.paper} zDepth={1} rounded={false}>
         <EnterAddress checkDeliveryZone={checkDeliveryZone} deliverable={deliverable}/>
@@ -36,7 +34,7 @@ const styles = {
     height: 400,
     width: 300,
     textAlign: 'center',
-    float: 'right',
+    flex: 2,
     margin: 18
   },
 }

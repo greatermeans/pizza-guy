@@ -4,11 +4,10 @@ class MobileTearSheet extends Component {
 
   static propTypes = {
     children: PropTypes.node,
-    height: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
-    height: 600,
+    height: 'auto',
   }
 
   static contextTypes = {
