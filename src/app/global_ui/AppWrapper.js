@@ -1,7 +1,7 @@
 import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { Paper, RaisedButton } from 'material-ui'
+import { Paper, RaisedButton, Dialog, Snackbar, FlatButton } from 'material-ui'
 import store from '../store'
 import actions from '../actions'
 import ShoppingBasket from 'material-ui/svg-icons/action/shopping-basket'
@@ -49,6 +49,7 @@ class AppWrapper extends Component {
   }
 
   render() {
+    const { children, dialog, snackbar, } = this.props
     return (
       <div style={styles.main}>
         <Paper style={styles.header} zDepth={1} rounded={false}>
@@ -57,7 +58,7 @@ class AppWrapper extends Component {
           <RaisedButton label="Sign Up" primary style={styles.signup} />
           <RaisedButton label="Log In" primary style={styles.login}/>
         </Paper>
-        {React.cloneElement(this.props.children, {
+        {React.cloneElement(children, {
           onChangeMuiTheme: this.handleChangeMuiTheme,
         })}
         <Paper style={styles.footer} rounded={false} zDepth={1}>
@@ -65,6 +66,50 @@ class AppWrapper extends Component {
             hello
           </div>
         </Paper>
+        <Snackbar
+          bodyStyle={styles.snackbarBody}
+          open={snackbar.open || false}
+          message={snackbar.message || ' '}
+          action={snackbar.action || ' '}
+          onActionTouchTap={() => {
+            this.props.hideSnackbar()
+            if (snackbar.onActionTouchTap) {
+              snackbar.onActionTouchTap()
+            }
+          }}
+          autoHideDuration={snackbar.autoHideDuration}
+          onRequestClose={snackbar.sticky ? (() => {}) : this.props.hideSnackbar}
+        />
+        <Dialog
+          title={dialog.title}
+          actions={[
+            <FlatButton
+              label={dialog.rejectCaption || ' '}
+              primary
+              onTouchTap={() => {
+                this.props.hideDialog()
+                if (dialog.rejectCallback) {
+                  dialog.rejectCallback()
+                }
+              }}
+            />,
+            <FlatButton
+              label={dialog.acceptCaption || ' '}
+              primary
+              keyboardFocused
+              onTouchTap={() => {
+                this.props.hideDialog()
+                if (dialog.acceptCallback) {
+                  dialog.acceptCallback()
+                }
+              }}
+            />,
+          ]}
+          open={dialog.open || false}
+          onRequestClose={this.props.hideDialog}
+        >
+        { dialog.content }
+        </Dialog>
       </div>
     )
   }
@@ -119,4 +164,18 @@ const styles = {
   }
 }
 
-export default connect(null, null)(AppWrapper)
+const mapStateToProps = (state) => {
+  return {
+    dialog: state.dialog,
+    snackbar: state.snackbar
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    hideSnackbar: () => dispatch(actions.hideSnackbar()),
+    hideDialog: () => dispatch(actions.hideDialog()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppWrapper)

@@ -16,7 +16,6 @@ const MenuItemList = ({menuItems, onChangeList, defaultValue}) => {
       >
         {menuItems.map((tile) => (
           <GridTile
-            titleStyle={styles.titleStyle}
             key={tile.name}
             title={tile.name}
             subtitle={<b>{tile.description}</b>}
@@ -55,9 +54,6 @@ const styles = {
   gridTile: {
     width: 350,
   },
-  titleStyle: {
-    whiteSpace: 'normal'
-  }
 }
 
 export default MenuItemList

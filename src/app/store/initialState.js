@@ -7,4 +7,8 @@ export default {
   user: {
     deliverable: null
   },
+  dialog: {
+    open: false,
+  },
+  snackbar: {},
 }
