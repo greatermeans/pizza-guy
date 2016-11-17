@@ -30,6 +30,14 @@ export default {
           data
         })
       })
+      axios.get(`${globalConfig.API}/types`, config)
+      .then((response) => {
+        let data = response.data
+        dispatch({
+          type: A.CACHE_TYPES,
+          data
+        })
+      })
     }
   },
 }

@@ -11,4 +11,5 @@ export default {
     open: false,
   },
   snackbar: {},
+  types: [],
 }
