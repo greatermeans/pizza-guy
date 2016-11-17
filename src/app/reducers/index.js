@@ -8,6 +8,7 @@ import dialogReducer from './dialog'
 import menuItemsReducer from './menuItems'
 import selectedCourseReducer from './selectedCourse'
 import snackbarReducer from './snackbar'
+import typesReducer from './types'
 import userReducer from './user'
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   routing: routerReducer,
   selectedCourse: selectedCourseReducer,
   snackbar: snackbarReducer,
+  types: typesReducer,
   user: userReducer,
 })
 
