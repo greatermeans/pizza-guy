@@ -6,8 +6,8 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border'
 /**
  * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
  */
-const MenuItemList = ({menuItems, onChangeList, defaultValue}) => {
-
+const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
+  
   return (
     <div style={styles.root}>
       <GridList
@@ -21,6 +21,9 @@ const MenuItemList = ({menuItems, onChangeList, defaultValue}) => {
             subtitle={<b>{tile.description}</b>}
             actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
             style={styles.gridTile}
+            onTouchTap={() => {
+              handleClick(tile)
+            }}
           >
             <img src={'https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg'} />
           </GridTile>

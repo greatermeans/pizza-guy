@@ -109,6 +109,7 @@ class AppWrapper extends Component {
           onRequestClose={this.props.hideDialog}
         >
         { dialog.content }
+        { dialog.price }
         </Dialog>
       </div>
     )

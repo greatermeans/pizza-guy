@@ -6,6 +6,21 @@ import MenuItemList from './MenuItemList'
 import { Paper } from 'material-ui'
 
 class MenuView extends Component {
+
+  handleItemClick = (tile) => {
+    let { name, description, item_types: itemTypes } = tile
+    let { types, showDialog, } = this.props
+    let filteredTypes = itemTypes.map(itemType => types.find(type => type.id === itemType.type_id))
+    showDialog({
+      title: name,
+      acceptCaption: 'Add To Cart',
+      rejectCaption: 'Cancel',
+      open: true,
+      content: description,
+      price: itemTypes[0].price
+    })
+  }
+
   handleChangeList = (event, value) => {
     this.props.selectCourse(value)
   }
@@ -31,6 +46,7 @@ class MenuView extends Component {
           onChangeList={this.handleItemSelection}
           defaultValue={menuItemsForSelectedCourse[0] && menuItemsForSelectedCourse[0].id || 1}
           style={styles.itemList}
+          handleClick={this.handleItemClick.bind(this)}
         />
       </Paper>
     )
@@ -58,7 +74,8 @@ const mapStateToProps = (state) => {
   return {
     courses: state.courses,
     menuItems: state.menuItems,
-    selectedCourse: state.selectedCourse
+    selectedCourse: state.selectedCourse,
+    types: state.types
   }
 }
 
@@ -66,6 +83,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     selectCourse: (id) => dispatch(actions.selectCourse(id)),
     selectItem: (id) => dispatch(actions.selectItem(id)),
+    showDialog: (dialog) => dispatch(actions.showDialog(dialog)),
   }
 }
 
