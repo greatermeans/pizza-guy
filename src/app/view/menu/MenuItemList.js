@@ -7,7 +7,7 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border'
  * A simple example of a scrollable `GridList` containing a [Subheader](/#/components/subheader).
  */
 const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
-  
+
   return (
     <div style={styles.root}>
       <GridList
@@ -51,8 +51,9 @@ const styles = {
   gridList: {
     marginTop: 15,
     width: 720,
-    height: 450,
+    height: 'auto',
     overflowY: 'auto',
+    marginBottom: 15,
   },
   gridTile: {
     width: 350,

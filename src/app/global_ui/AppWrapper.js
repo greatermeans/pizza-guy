@@ -1,10 +1,12 @@
 import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { Paper, RaisedButton, Dialog, Snackbar, FlatButton } from 'material-ui'
+import { IconButton, Paper, RaisedButton, Dialog, Snackbar, FlatButton, TextField } from 'material-ui'
 import store from '../store'
 import actions from '../actions'
 import ShoppingBasket from 'material-ui/svg-icons/action/shopping-basket'
+import ContentAdd from 'material-ui/svg-icons/content/add'
+import ContentRemove from 'material-ui/svg-icons/content/remove'
 
 class AppWrapper extends Component {
   static propTypes = {
@@ -28,6 +30,7 @@ class AppWrapper extends Component {
   componentWillMount() {
     this.setState({
       muiTheme: getMuiTheme(),
+      counter: 1
     })
   }
 
@@ -50,6 +53,7 @@ class AppWrapper extends Component {
 
   render() {
     const { children, dialog, snackbar, } = this.props
+    const { counter } = this.state
     return (
       <div style={styles.main}>
         <Paper style={styles.header} zDepth={1} rounded={false}>
@@ -82,6 +86,7 @@ class AppWrapper extends Component {
         />
         <Dialog
           title={dialog.title}
+          titleStyle={styles.title}
           actions={[
             <FlatButton
               label={dialog.rejectCaption || ' '}
@@ -108,8 +113,43 @@ class AppWrapper extends Component {
           open={dialog.open || false}
           onRequestClose={this.props.hideDialog}
         >
-        { dialog.content }
-        { dialog.price }
+        <div style={styles.itemPrice}>
+          { (dialog.price * counter) + 'kr' }
+        </div>
+        <div style={styles.itemDescription}>
+          { dialog.content + '.'}
+        </div>
+        <div style={styles.counterContainer}>
+          <IconButton onTouchTap={()=> {
+            let newCounter = counter === 1 ? counter : counter - 1
+            this.setState({counter: newCounter})
+          }}>
+            <ContentRemove />
+          </IconButton>
+          <div style={styles.counter}>
+            {counter}
+          </div>
+          <IconButton onTouchTap={()=> {
+            let newCounter = counter > 20 ? counter : counter + 1
+            this.setState({counter: newCounter})
+          }}>
+            <ContentAdd />
+          </IconButton>
+        </div>
+        <TextField
+          hintText={
+            'No pepporoni? Dressing on the side?\
+             Let us know here. Note: any price alterations due to special requests \
+             will be charged after your order is processed.'
+           }
+          floatingLabelText={'Add Special Instructions Here!'}
+          rows={4}
+          rowsMax={5}
+          fullWidth
+          onChange={(event, value)=> {
+            this.setState({instructions: value})
+          }}
+        />
         </Dialog>
       </div>
     )
@@ -124,6 +164,15 @@ const styles = {
     width: 45,
     height: 'auto',
     cursor: 'pointer'
+  },
+  counter: {
+    boxShadow: '0 0 2px rgba(0,0,0,.3)',
+    borderRadius: 8,
+    width: 44,
+    alignSelf: 'center'
+  },
+  counterContainer: {
+    display: 'flex'
   },
   footer: {
     backgroundColor: 'black',
@@ -143,6 +192,18 @@ const styles = {
     width: '100%',
     textAlign: 'center',
   },
+  itemDescription: {
+    textAlign: '-webkit-auto'
+  },
+  itemPrice: {
+    textAlign: '-webkit-auto',
+    fontWeight: 600,
+    marginBottom: 20,
+  },
+  login: {
+    marginTop: 20,
+    float: 'right'
+  },
   logo: {
     width: 75,
     height: 'auto',
@@ -156,9 +217,9 @@ const styles = {
     margin: 20,
     float: 'right',
   },
-  login: {
-    marginTop: 20,
-    float: 'right'
+  title: {
+    textAlign: '-webkit-auto',
+    paddingBottom: 10
   },
   white: {
     width: '80%'

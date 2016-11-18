@@ -63,7 +63,7 @@ const styles = {
   menu: {
     display: 'flex',
     width: 1000,
-    height: 500,
+    height: 650,
     margin: 30,
     flex: 6,
     textAlign: 'left'
