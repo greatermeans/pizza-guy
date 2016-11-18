@@ -5,7 +5,6 @@ import actions from '../../actions'
 import { Paper } from 'material-ui'
 import GoogleMap from 'google-map-react'
 import Marker from './Marker'
-import EnterAddress from './EnterAddress'
 
 class MapView extends Component {
 

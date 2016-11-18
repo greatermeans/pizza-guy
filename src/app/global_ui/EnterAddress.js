@@ -2,6 +2,11 @@ import React from 'react'
 import Geosuggest from 'react-geosuggest'
 
 const styles = {
+  addressSearch: {
+    width: 250,
+    float: 'left',
+    marginLeft: 30,
+  },
   headerStyle: {
     fontSize: 16,
     marginTop: 8
@@ -31,13 +36,7 @@ const EnterAddress = ({checkDeliveryZone, deliverable}) => {
   }
 
   return (
-    <div>
-      <div style={styles.headerStyle}>
-        {changeHeader(deliverable).header}
-      </div>
-      <div style={styles.subheaderStyle}>
-        {changeHeader(deliverable).subheader}
-      </div>
+    <div style={styles.addressSearch}>
       <Geosuggest
         placeholder="Street Address, City, Country"
         onSuggestSelect={checkDeliveryZone}

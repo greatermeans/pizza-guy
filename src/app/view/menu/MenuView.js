@@ -17,7 +17,8 @@ class MenuView extends Component {
       rejectCaption: 'Cancel',
       open: true,
       content: description,
-      price: itemTypes[0].price
+      itemTypes,
+      item: {...tile, filteredTypes}
     })
   }
 

@@ -7,6 +7,7 @@ import actions from '../actions'
 import ShoppingBasket from 'material-ui/svg-icons/action/shopping-basket'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentRemove from 'material-ui/svg-icons/content/remove'
+import EnterAddress from './EnterAddress'
 
 class AppWrapper extends Component {
   static propTypes = {
@@ -30,7 +31,8 @@ class AppWrapper extends Component {
   componentWillMount() {
     this.setState({
       muiTheme: getMuiTheme(),
-      counter: 1
+      counter: 1,
+      instructions: '',
     })
   }
 
@@ -52,12 +54,13 @@ class AppWrapper extends Component {
   }
 
   render() {
-    const { children, dialog, snackbar, } = this.props
+    const { children, checkDeliveryZone, dialog, deliverable, snackbar, addItem, hideDialog, } = this.props
     const { counter } = this.state
     return (
       <div style={styles.main}>
         <Paper style={styles.header} zDepth={1} rounded={false}>
           <img style={styles.logo} src={'/images/pizzaguy-logo.png'}/>
+          <EnterAddress checkDeliveryZone={checkDeliveryZone} deliverable={deliverable}/>
           <ShoppingBasket style={styles.basket}/>
           <RaisedButton label="Sign Up" primary style={styles.signup} />
           <RaisedButton label="Log In" primary style={styles.login}/>
@@ -65,11 +68,6 @@ class AppWrapper extends Component {
         {React.cloneElement(children, {
           onChangeMuiTheme: this.handleChangeMuiTheme,
         })}
-        <Paper style={styles.footer} rounded={false} zDepth={1}>
-          <div style={styles.footText}>
-            hello
-          </div>
-        </Paper>
         <Snackbar
           bodyStyle={styles.snackbarBody}
           open={snackbar.open || false}
@@ -103,7 +101,8 @@ class AppWrapper extends Component {
               primary
               keyboardFocused
               onTouchTap={() => {
-                this.props.hideDialog()
+                hideDialog()
+                addItem(dialog.item)
                 if (dialog.acceptCallback) {
                   dialog.acceptCallback()
                 }
@@ -228,6 +227,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
+    deliverable: state.user.deliverable,
     dialog: state.dialog,
     snackbar: state.snackbar
   }
@@ -235,6 +235,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addItem: (item) => dispatch(actions.addItem(item)),
+    checkDeliveryZone: (address) => dispatch(actions.checkDeliveryZone(address)),
     hideSnackbar: () => dispatch(actions.hideSnackbar()),
     hideDialog: () => dispatch(actions.hideDialog()),
   }
