@@ -55,7 +55,7 @@ class MenuView extends Component {
 const styles = {
   paperContainer: {
     display: 'flex',
-    height: 675,
+    height: 650,
     margin: 30,
     flex: 6,
     textAlign: 'left'

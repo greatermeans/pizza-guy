@@ -7,6 +7,15 @@ const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
   let numberOfColumns = menuItems.length > 10 ? 3 : 2
   let tileWidth = menuItems.length > 10 ? 300 : 350
   let styles = {
+    iconButton: {
+      marginRight: 15,
+      marginBottom: 10
+    },
+    iconStyle: {
+      color: 'green',
+      width: 40,
+      height: 40
+    },
     list: {
       display: 'flex',
       flexWrap: 'wrap',
@@ -49,7 +58,7 @@ const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
             title={tile.name}
             subtitle={<b>{tile.description}</b>}
             actionIcon={
-              <IconButton>
+              <IconButton style={styles.iconButton} iconStyle={styles.iconStyle}>
                 <ContentAddBox color={'green'}/>
               </IconButton>
             }
