@@ -2,16 +2,14 @@ import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {
-  IconButton, RadioButton, RadioButtonGroup, RaisedButton, Dialog,
-  Snackbar, FlatButton, TextField, Toolbar, ToolbarGroup,
+  IconButton, RadioButton, RadioButtonGroup, RaisedButton,
+  Snackbar, Toolbar, ToolbarGroup,
 } from 'material-ui'
-import store from '../store'
 import actions from '../actions'
 import ShoppingBasket from 'material-ui/svg-icons/action/shopping-basket'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import ContentRemove from 'material-ui/svg-icons/content/remove'
 import EnterAddress from './EnterAddress'
 import MapsLocalPizza from 'material-ui/svg-icons/maps/local-pizza'
+import Dialog from './Dialog'
 
 class AppWrapper extends Component {
   static propTypes = {
@@ -35,8 +33,6 @@ class AppWrapper extends Component {
   componentWillMount() {
     this.setState({
       muiTheme: getMuiTheme(),
-      counter: 1,
-      instructions: '',
     })
   }
 
@@ -53,13 +49,8 @@ class AppWrapper extends Component {
     })
   }
 
-  handleActiveTab({props}) {
-    store.dispatch(actions.changePath(props['data-route']))
-  }
-
   render() {
     const { children, checkDeliveryZone, dialog, deliverable, snackbar, addItem, hideDialog, } = this.props
-    const { counter } = this.state
     let buttonLabel = ''
     if (deliverable) {
       buttonLabel = 'Delivery is available'
@@ -73,7 +64,7 @@ class AppWrapper extends Component {
           <ToolbarGroup firstChild>
             <img style={styles.logo} src={'/images/pizzaguy-logo.png'}/>
             <EnterAddress checkDeliveryZone={checkDeliveryZone} deliverable={deliverable}/>
-            <RadioButtonGroup valueSelected={deliverable ? 'pizza' : ''}>
+            <RadioButtonGroup name={'delivery'} valueSelected={deliverable ? 'pizza' : ''}>
               <RadioButton
                 value="pizza"
                 label={buttonLabel}
@@ -108,74 +99,7 @@ class AppWrapper extends Component {
           autoHideDuration={snackbar.autoHideDuration}
           onRequestClose={snackbar.sticky ? (() => {}) : this.props.hideSnackbar}
         />
-        <Dialog
-          title={dialog.title}
-          titleStyle={styles.title}
-          actions={[
-            <FlatButton
-              label={dialog.rejectCaption || ' '}
-              primary
-              onTouchTap={() => {
-                this.props.hideDialog()
-                if (dialog.rejectCallback) {
-                  dialog.rejectCallback()
-                }
-              }}
-            />,
-            <FlatButton
-              label={dialog.acceptCaption || ' '}
-              primary
-              keyboardFocused
-              onTouchTap={() => {
-                hideDialog()
-                addItem(dialog.item)
-                if (dialog.acceptCallback) {
-                  dialog.acceptCallback()
-                }
-              }}
-            />,
-          ]}
-          open={dialog.open || false}
-          onRequestClose={this.props.hideDialog}
-        >
-        <div style={styles.itemPrice}>
-          { (dialog.price * counter) + 'kr' }
-        </div>
-        <div style={styles.itemDescription}>
-          { dialog.content + '.'}
-        </div>
-        <div style={styles.counterContainer}>
-          <IconButton onTouchTap={()=> {
-            let newCounter = counter === 1 ? counter : counter - 1
-            this.setState({counter: newCounter})
-          }}>
-            <ContentRemove />
-          </IconButton>
-          <div style={styles.counter}>
-            {counter}
-          </div>
-          <IconButton onTouchTap={()=> {
-            let newCounter = counter > 20 ? counter : counter + 1
-            this.setState({counter: newCounter})
-          }}>
-            <ContentAdd />
-          </IconButton>
-        </div>
-        <TextField
-          hintText={
-            'No pepporoni? Dressing on the side?\
-             Let us know here. Note: any price alterations due to special requests \
-             will be charged after your order is processed.'
-           }
-          floatingLabelText={'Add Special Instructions Here!'}
-          rows={4}
-          rowsMax={5}
-          fullWidth
-          onChange={(event, value)=> {
-            this.setState({instructions: value})
-          }}
-        />
-        </Dialog>
+        <Dialog dialog={dialog} hideDialog={hideDialog} addItem={addItem}/>
       </div>
     )
   }
@@ -185,23 +109,6 @@ const styles = {
   basket: {
     width: 40,
     height: 40,
-  },
-  counter: {
-    boxShadow: '0 0 2px rgba(0,0,0,.3)',
-    borderRadius: 8,
-    width: 44,
-    alignSelf: 'center'
-  },
-  counterContainer: {
-    display: 'flex'
-  },
-  itemDescription: {
-    textAlign: '-webkit-auto'
-  },
-  itemPrice: {
-    textAlign: '-webkit-auto',
-    fontWeight: 600,
-    marginBottom: 20,
   },
   logo: {
     width: 100,
@@ -221,10 +128,6 @@ const styles = {
   },
   thirdGroup: {
     marginTop: 15,
-  },
-  title: {
-    textAlign: '-webkit-auto',
-    paddingBottom: 10
   },
   toolbar: {
     height: 100,

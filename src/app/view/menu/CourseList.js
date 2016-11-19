@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { List, ListItem, MakeSelectable} from 'material-ui'
-import MobileTearSheet from '../../global_ui/MobileTearSheet'
+import MobileTearSheet from './MobileTearSheet'
 import ContentInbox from 'material-ui/svg-icons/content/inbox'
 
 let SelectableList = MakeSelectable(List)

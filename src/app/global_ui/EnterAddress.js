@@ -6,34 +6,10 @@ const styles = {
     width: 250,
     marginLeft: 30,
     marginTop: 13
-  },
-  headerStyle: {
-    fontSize: 16,
-    marginTop: 8
-  },
-  subheaderStyle: {
-    fontSize: 10,
-    marginTop: 6
   }
 }
 
-let text = {header: '', subheader: ''}
-
 const EnterAddress = ({checkDeliveryZone, deliverable}) => {
-
-  let changeHeader = (deliverable) => {
-    if (deliverable === false) {
-      text.header = 'Sorry, we don\'t deliver to you.'
-      text.subheader = 'You can still order for takeout!'
-    } else if (deliverable === true) {
-      text.header = 'We deliver to this address!'
-      text.subheader = 'Start ordering right away!'
-    } else {
-      text.header = 'Check to see if we deliver to you!'
-      text.subheader = 'Test Subheader!'
-    }
-    return text
-  }
 
   return (
     <div style={styles.addressSearch}>
