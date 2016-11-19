@@ -62,7 +62,7 @@ export default class GlobalDialog extends Component {
         }}
       >
         <div style={styles.itemDescription}>
-          { dialog.content + '.'}
+          {dialog.content}
         </div>
         <RadioButtonGroup
           name={'type'}
