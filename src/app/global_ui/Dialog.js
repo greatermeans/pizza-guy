@@ -77,7 +77,7 @@ export default class GlobalDialog extends Component {
                 <RadioButton
                   key={idx}
                   value={type.id}
-                  label={type.name + ': ' + price + 'kr'}
+                  label={type.name + ': ' + (price * quantity) + 'kr'}
                 />
               )
             })
