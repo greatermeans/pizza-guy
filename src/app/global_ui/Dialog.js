@@ -1,19 +1,22 @@
 import React, { Component, } from 'react'
-import { Dialog, IconButton, FlatButton, TextField, } from 'material-ui'
+import { Dialog, FlatButton, IconButton, RadioButton, RadioButtonGroup, TextField, } from 'material-ui'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import ContentRemove from 'material-ui/svg-icons/content/remove'
 
 export default class GlobalDialog extends Component {
   componentWillMount() {
     this.setState({
-      counter: 1,
+      quantity: 1,
       instructions: '',
+      type: null
     })
   }
 
   render() {
     const { addItem, dialog, hideDialog, } = this.props
-    const { counter, } = this.state
+    const { quantity, } = this.state
+    const { item, itemTypes } = dialog
+    let filteredTypes = (item && item.filteredTypes) || []
 
     return (
       <Dialog
@@ -24,7 +27,12 @@ export default class GlobalDialog extends Component {
             label={dialog.rejectCaption || ' '}
             primary
             onTouchTap={() => {
-              this.props.hideDialog()
+              hideDialog()
+              this.setState({
+                quantity: 1,
+                instructions: '',
+                type: null
+              })
               if (dialog.rejectCallback) {
                 dialog.rejectCallback()
               }
@@ -44,36 +52,50 @@ export default class GlobalDialog extends Component {
           />,
         ]}
         open={dialog.open || false}
-        onRequestClose={this.props.hideDialog}
-      >
-        {
-          dialog.item && dialog.item.filteredTypes.map(type => {
-            let price = dialog.itemTypes.find(itemType => itemType.type_id === type.id).price
-            return (
-              <div style={styles.itemPrice}>
-                Size: {type.name}
-                <br />
-                { (price * counter) + 'kr' }
-              </div>
-            )
+        onRequestClose={() => {
+          hideDialog()
+          this.setState({
+            quantity: 1,
+            instructions: '',
+            type: null
           })
-        }
+        }}
+      >
         <div style={styles.itemDescription}>
           { dialog.content + '.'}
         </div>
-        <div style={styles.counterContainer}>
+        <RadioButtonGroup
+          name={'type'}
+          defaultSelected={filteredTypes[0] && filteredTypes[0].id}
+          onChange={(event, value) => {this.setState({type: value})}}
+          style={styles.radioGroup}
+        >
+          {
+            filteredTypes.map((type, idx) => {
+              let price = itemTypes.find(itemType => itemType.type_id === type.id).price
+              return (
+                <RadioButton
+                  key={idx}
+                  value={type.id}
+                  label={type.name + ': ' + price + 'kr'}
+                />
+              )
+            })
+          }
+        </RadioButtonGroup>
+        <div style={styles.quantityContainer}>
           <IconButton onTouchTap={()=> {
-            let newCounter = counter === 1 ? counter : counter - 1
-            this.setState({counter: newCounter})
+            let newCounter = quantity === 1 ? quantity : quantity - 1
+            this.setState({quantity: newCounter})
           }}>
             <ContentRemove />
           </IconButton>
-          <div style={styles.counter}>
-            {counter}
+          <div style={styles.quantity}>
+            {quantity}
           </div>
           <IconButton onTouchTap={()=> {
-            let newCounter = counter > 20 ? counter : counter + 1
-            this.setState({counter: newCounter})
+            let newCounter = quantity > 20 ? quantity : quantity + 1
+            this.setState({quantity: newCounter})
           }}>
             <ContentAdd />
           </IconButton>
@@ -98,22 +120,27 @@ export default class GlobalDialog extends Component {
 }
 
 const styles = {
-  counter: {
+  quantity: {
     boxShadow: '0 0 2px rgba(0,0,0,.3)',
     borderRadius: 8,
     width: 44,
     alignSelf: 'center'
   },
-  counterContainer: {
+  quantityContainer: {
     display: 'flex'
   },
   itemDescription: {
-    textAlign: '-webkit-auto'
+    textAlign: '-webkit-auto',
+    marginBottom: 10,
   },
   itemPrice: {
     textAlign: '-webkit-auto',
     fontWeight: 600,
     marginBottom: 20,
+  },
+  radioGroup: {
+    textAlign: '-webkit-auto',
+    marginBottom: 10,
   },
   title: {
     textAlign: '-webkit-auto',

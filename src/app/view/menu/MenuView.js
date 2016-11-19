@@ -32,7 +32,6 @@ class MenuView extends Component {
 
   render() {
     let { courses, menuItems, selectedCourse, } = this.props
-    let menuItemsForSelectedCourse = menuItems.filter(item => item.course_id === selectedCourse)
 
     return (
       <Paper style={styles.paperContainer} zDepth={3} rounded >
@@ -42,10 +41,10 @@ class MenuView extends Component {
           defaultValue={selectedCourse}
         />
         <MenuItemList
-          menuItems={menuItemsForSelectedCourse}
+          menuItems={menuItems.filter(item => item.course_id === selectedCourse)}
           onChangeList={this.handleItemSelection}
-          defaultValue={menuItemsForSelectedCourse[0] && menuItemsForSelectedCourse[0].id || 1}
           handleClick={this.handleItemClick.bind(this)}
+          selectedCourseDetails={courses.find(course => course.id === selectedCourse)}
         />
       </Paper>
     )
@@ -55,7 +54,7 @@ class MenuView extends Component {
 const styles = {
   paperContainer: {
     display: 'flex',
-    height: 650,
+    height: 640,
     margin: 30,
     flex: 6,
     textAlign: 'left'

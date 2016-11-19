@@ -3,9 +3,11 @@ import { GridList, GridTile } from 'material-ui/GridList'
 import IconButton from 'material-ui/IconButton'
 import ContentAddBox from 'material-ui/svg-icons/content/add-box'
 
-const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
-  let numberOfColumns = menuItems.length > 10 ? 3 : 2
-  let tileWidth = menuItems.length > 10 ? 300 : 350
+const MenuItemList = ({menuItems, onChangeList, handleClick, selectedCourseDetails}) => {
+  let moreThanFourItems = menuItems.length > 4
+  let numberOfColumns = moreThanFourItems ? 3 : 2
+  let tileWidth = moreThanFourItems ? 300 : 350
+  let tileHeight = moreThanFourItems ? 180 : 210
   let styles = {
     iconButton: {
       marginRight: 15,
@@ -25,13 +27,13 @@ const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
       fontSize: 16,
     },
     root: {
-      display: 'flex',
-      flexWrap: 'wrap',
       justifyContent: 'space-around',
       flex: 4,
+      overflowY: 'auto',
+      margin: 15
     },
     gridList: {
-      marginTop: 15,
+      marginTop: 5,
       width: '100%',
       height: 'auto',
       overflowY: 'auto',
@@ -42,12 +44,19 @@ const MenuItemList = ({menuItems, onChangeList, defaultValue, handleClick}) => {
       flex: 1,
       cursor: 'pointer'
     },
+    menuItemsHeader: {
+      textAlign: '-webkit-center'
+    }
   }
 
   return (
     <div style={styles.root}>
+      <div style={styles.menuItemsHeader}>
+        <h3>{selectedCourseDetails && selectedCourseDetails.name}</h3>
+        <h5>{selectedCourseDetails && selectedCourseDetails.description}</h5>
+      </div>
       <GridList
-        cellHeight={180}
+        cellHeight={tileHeight}
         style={styles.gridList}
         cols={numberOfColumns}
         padding={25}
