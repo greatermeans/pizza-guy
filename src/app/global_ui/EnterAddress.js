@@ -6,6 +6,7 @@ const styles = {
     width: 250,
     float: 'left',
     marginLeft: 30,
+    marginTop: 5
   },
   headerStyle: {
     fontSize: 16,

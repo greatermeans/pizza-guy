@@ -3,7 +3,6 @@ import A from '../const/actionTypes'
 export default {
   addItem: (item) => {
     return (dispatch, getState) => {
-      debugger
       dispatch({
         type: A.ADD_ITEM,
         item
