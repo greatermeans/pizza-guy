@@ -5,10 +5,20 @@ import ContentRemove from 'material-ui/svg-icons/content/remove'
 
 export default class GlobalDialog extends Component {
   componentWillMount() {
+    const { item, } = this.props.dialog
+    let filteredTypes = (item && item.filteredTypes) || []
     this.setState({
       quantity: 1,
       instructions: '',
-      type: null
+      type: filteredTypes[0] && filteredTypes[0].id
+    })
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    const { item, } = nextProps.dialog
+    let filteredTypes = (item && item.filteredTypes) || []
+    this.setState({
+      type: filteredTypes[0] && filteredTypes[0].id
     })
   }
 
@@ -44,7 +54,7 @@ export default class GlobalDialog extends Component {
             keyboardFocused
             onTouchTap={() => {
               hideDialog()
-              addItem(dialog.item)
+              addItem({...dialog.item, ...this.state})
               if (dialog.acceptCallback) {
                 dialog.acceptCallback()
               }

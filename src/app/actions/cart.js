@@ -3,10 +3,12 @@ import A from '../const/actionTypes'
 export default {
   addItem: (item) => {
     return (dispatch, getState) => {
-      dispatch({
-        type: A.ADD_ITEM,
-        item
-      })
+      let { id, instructions, quantity, type, } = item
+      let proto = {}
+      proto['type'] = A.ADD_ITEM
+      proto['item'] = {}
+      proto['item'][id] = { instructions, quantity, type, }
+      dispatch(proto)
     }
   },
   changeQuantity: ({item, quantity}) => {

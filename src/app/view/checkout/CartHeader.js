@@ -1,10 +1,18 @@
 import React from 'react'
 
-const CartHeader = ({cart}) => {
-  if (cart.length === 0) {
-    return <div>Your cart is empty!</div>
+const styles = {
+  cartHeader: {
+
   }
-  return <div>Your cart:</div>
+}
+
+const CartHeader = ({}) => {
+
+  return (
+    <div style={styles.cartHeader}>
+
+    </div>
+  )
 }
 
 export default CartHeader

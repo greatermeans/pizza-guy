@@ -41,10 +41,11 @@ class MenuView extends Component {
           defaultValue={selectedCourse}
         />
         <MenuItemList
-          menuItems={menuItems.filter(item => item.course_id === selectedCourse)}
+          selectedMenuItems={courses[selectedCourse] && courses[selectedCourse].item_ids || []}
+          menuItems={menuItems}
           onChangeList={this.handleItemSelection}
           handleClick={this.handleItemClick.bind(this)}
-          selectedCourseDetails={courses.find(course => course.id === selectedCourse)}
+          selectedCourseDetails={courses && courses[selectedCourse]}
         />
       </Paper>
     )
@@ -57,7 +58,8 @@ const styles = {
     height: 640,
     margin: 30,
     flex: 6,
-    textAlign: 'left'
+    textAlign: 'left',
+    width: 1111
   },
 }
 

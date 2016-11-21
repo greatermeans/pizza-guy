@@ -49,19 +49,16 @@ export default class CourseList extends Component {
       <MobileTearSheet>
         <SelectableList defaultValue={defaultValue} style={styles.list} onChangeList={onChangeList}>
         {
-          courses.map(datum => {
-            let { id, name, } = datum
-            return (
-              <ListItem
-                key={id}
-                value={id}
-                primaryText={name}
-                leftIcon={<ContentInbox key={id} />}
-                style={styles.listItem}
-                innerDivStyle={styles.innerDiv}
-              />
-            )
-          })
+          Object.keys(courses).map(courseId => (
+            <ListItem
+              key={courseId}
+              value={courseId}
+              primaryText={courses[courseId].name}
+              leftIcon={<ContentInbox key={courseId} />}
+              style={styles.listItem}
+              innerDivStyle={styles.innerDiv}
+            />
+          ))
         }
         </SelectableList>
       </MobileTearSheet>
