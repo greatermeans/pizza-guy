@@ -77,7 +77,7 @@ const MenuItemList = ({selectedMenuItems, menuItems, onChangeList, handleClick, 
         cellHeight={55}
         style={styles.gridList}
         cols={3}
-        padding={15}
+        padding={16}
       >
         {
           _.compact(Object.keys(menuItems).map((itemId) => {
