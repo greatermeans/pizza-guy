@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
-import { List, ListItem, MakeSelectable} from 'material-ui'
+import { List, ListItem, makeSelectable} from 'material-ui'
 import MobileTearSheet from './MobileTearSheet'
 import ContentInbox from 'material-ui/svg-icons/content/inbox'
 
-let SelectableList = MakeSelectable(List)
+let SelectableList = makeSelectable(List)
 
 const wrapState = (ComposedComponent) => {
   return class SelectableList extends Component {

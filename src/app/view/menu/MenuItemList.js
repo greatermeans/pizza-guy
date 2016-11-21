@@ -9,9 +9,27 @@ const MenuItemList = ({menuItems, onChangeList, handleClick, selectedCourseDetai
   let tileWidth = moreThanFourItems ? 300 : 350
   let tileHeight = moreThanFourItems ? 180 : 210
   let styles = {
+    container: {
+      float: 'left'
+    },
+    gridList: {
+      marginTop: 5,
+      width: '100%',
+      height: 'auto',
+      overflowY: 'auto',
+      marginBottom: 15,
+    },
+    gridTile: {
+      width: 300,
+      flex: 1,
+      cursor: 'pointer',
+    },
     iconButton: {
       marginRight: 15,
-      marginBottom: 10
+      marginBottom: 10,
+      float: 'right',
+      paddingLeft: 10,
+      paddingTop: 0
     },
     iconStyle: {
       color: 'green',
@@ -26,27 +44,25 @@ const MenuItemList = ({menuItems, onChangeList, handleClick, selectedCourseDetai
     listItem: {
       fontSize: 16,
     },
+    menuItemsHeader: {
+      textAlign: '-webkit-center'
+    },
     root: {
       justifyContent: 'space-around',
       flex: 4,
       overflowY: 'auto',
       margin: 15
     },
-    gridList: {
-      marginTop: 5,
-      width: '100%',
-      height: 'auto',
-      overflowY: 'auto',
-      marginBottom: 15,
+    subtitleStyle: {
+      color: 'rgb(0, 188, 212)',
+      textOverflow: 'ellipsis',
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      width: 225
     },
-    gridTile: {
-      width: tileWidth,
-      flex: 1,
-      cursor: 'pointer'
+    titleStyle: {
+      color: 'rgb(0, 188, 212)'
     },
-    menuItemsHeader: {
-      textAlign: '-webkit-center'
-    }
   }
 
   return (
@@ -56,27 +72,26 @@ const MenuItemList = ({menuItems, onChangeList, handleClick, selectedCourseDetai
         <h5>{selectedCourseDetails && selectedCourseDetails.description}</h5>
       </div>
       <GridList
-        cellHeight={tileHeight}
+        cellHeight={55}
         style={styles.gridList}
         cols={numberOfColumns}
-        padding={25}
+        padding={15}
       >
         {menuItems.map((tile) => (
           <GridTile
             key={tile.name}
-            title={tile.name}
-            subtitle={<b>{tile.description}</b>}
-            actionIcon={
-              <IconButton style={styles.iconButton} iconStyle={styles.iconStyle}>
-                <ContentAddBox color={'green'}/>
-              </IconButton>
-            }
             style={styles.gridTile}
             onTouchTap={() => {
               handleClick(tile)
             }}
           >
-            <img src={'https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg'} />
+          <div style={styles.container}>
+            <div style={styles.titleStyle}>{tile.name}</div>
+            <div style={styles.subtitleStyle}>{tile.description}</div>
+          </div>
+          <IconButton style={styles.iconButton} iconStyle={styles.iconStyle}>
+            <ContentAddBox color={'green'}/>
+          </IconButton>
           </GridTile>
         ))}
       </GridList>
