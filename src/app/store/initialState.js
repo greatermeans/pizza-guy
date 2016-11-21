@@ -1,7 +1,7 @@
 export default {
-  cart: [],
-  courses: [],
-  menuItems: [],
+  cart: {},
+  courses: {},
+  menuItems: {},
   restaurant: {},
   selectedCourse: 41,
   user: {
@@ -11,5 +11,5 @@ export default {
     open: false,
   },
   snackbar: {},
-  types: [],
+  types: {},
 }

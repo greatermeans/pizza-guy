@@ -6,10 +6,10 @@ export default function (currentState, action) {
 
   switch (action.type) {
     case A.ADD_ITEM:
-      return [
+      return {
         ...currentState,
-        action.itemId
-      ]
+        ...action.item
+      }
     case A.CHANGE_QUANTITY:
       newState = [].concat(currentState)
       index = newState.indexOf(action.item)
