@@ -21,9 +21,14 @@ export default {
         response.data.map(datum => {
           data[datum.id] = _.omit(datum, 'id')
         })
+        let courseId = parseInt(Object.keys(data)[0], 10)
         dispatch({
           type: A.CACHE_COURSES,
           data
+        })
+        dispatch({
+          type: A.UPDATE_SELECTED_COURSE,
+          courseId
         })
       })
       axios.get(`${globalConfig.API}/items`, config)

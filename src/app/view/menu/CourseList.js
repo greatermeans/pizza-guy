@@ -44,7 +44,7 @@ export default class CourseList extends Component {
 
   render() {
     let { courses, onChangeList, defaultValue } = this.props
-    debugger
+
     return (
       <MobileTearSheet>
         <SelectableList defaultValue={defaultValue} style={styles.list} onChangeList={onChangeList}>

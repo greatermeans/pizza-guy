@@ -4,7 +4,7 @@ export default {
   selectCourse: (courseId) => {
     return (dispatch, getState) => {
       dispatch({
-        type: A.UPDATED_SELECTED_COURSE,
+        type: A.UPDATE_SELECTED_COURSE,
         courseId
       })
     }

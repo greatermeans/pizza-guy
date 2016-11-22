@@ -2,11 +2,10 @@ import React, { Component, PropTypes, } from 'react'
 import { connect, } from 'react-redux'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import {
-  IconButton, RadioButton, RadioButtonGroup, RaisedButton,
+  RadioButton, RadioButtonGroup, RaisedButton,
   Snackbar, Toolbar, ToolbarGroup,
 } from 'material-ui'
 import actions from '../actions'
-import ShoppingBasket from 'material-ui/svg-icons/action/shopping-basket'
 import EnterAddress from './EnterAddress'
 import MapsLocalPizza from 'material-ui/svg-icons/maps/local-pizza'
 import Dialog from './Dialog'
@@ -78,9 +77,6 @@ class AppWrapper extends Component {
             <RaisedButton label={'Sign Up'} primary/>
             <RaisedButton label={'Log In'} primary/>
           </ToolbarGroup>
-          <ToolbarGroup style={styles.thirdGroup}>
-            <IconButton iconStyle={styles.basket}><ShoppingBasket/></IconButton>
-          </ToolbarGroup>
         </Toolbar>
         {React.cloneElement(children, {
           onChangeMuiTheme: this.handleChangeMuiTheme,
@@ -123,11 +119,7 @@ const styles = {
   },
   secondGroup: {
     display: 'block',
-    marginRight: -400,
     marginTop: 22
-  },
-  thirdGroup: {
-    marginTop: 15,
   },
   toolbar: {
     height: 100,

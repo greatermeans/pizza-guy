@@ -5,28 +5,25 @@ import ContentRemove from 'material-ui/svg-icons/content/remove'
 
 export default class GlobalDialog extends Component {
   componentWillMount() {
-    const { item, } = this.props.dialog
-    let filteredTypes = (item && item.filteredTypes) || []
+    const { selected, } = this.props
     this.setState({
       quantity: 1,
       instructions: '',
-      type: filteredTypes[0] && filteredTypes[0].id
+      type: selected
     })
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { item, } = nextProps.dialog
-    let filteredTypes = (item && item.filteredTypes) || []
+    const { selected, } = nextProps
     this.setState({
-      type: filteredTypes[0] && filteredTypes[0].id
+      type: selected
     })
   }
 
   render() {
     const { addItem, dialog, hideDialog, } = this.props
     const { quantity, } = this.state
-    const { item, itemTypes } = dialog
-    let filteredTypes = (item && item.filteredTypes) || []
+    const { itemTypes, filteredTypes, selected } = dialog
 
     return (
       <Dialog
@@ -76,18 +73,18 @@ export default class GlobalDialog extends Component {
         </div>
         <RadioButtonGroup
           name={'type'}
-          defaultSelected={filteredTypes[0] && filteredTypes[0].id}
+          defaultSelected={selected}
           onChange={(event, value) => {this.setState({type: value})}}
           style={styles.radioGroup}
         >
           {
-            filteredTypes.map((type, idx) => {
-              let price = itemTypes.find(itemType => itemType.type_id === type.id).price
+            filteredTypes && Object.keys(filteredTypes).map(filteredTypeId => {
+              let price = itemTypes.find(itemType => itemType.type_id === parseInt(filteredTypeId, 10)).price
               return (
                 <RadioButton
-                  key={idx}
-                  value={type.id}
-                  label={type.name + ': ' + (price * quantity) + 'kr'}
+                  key={filteredTypeId}
+                  value={filteredTypeId}
+                  label={filteredTypes[filteredTypeId].name + ': ' + (price * quantity) + 'kr'}
                 />
               )
             })

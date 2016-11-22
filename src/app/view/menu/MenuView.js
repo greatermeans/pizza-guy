@@ -7,10 +7,14 @@ import { Paper } from 'material-ui'
 
 class MenuView extends Component {
 
-  handleItemClick = (tile) => {
-    let { name, description, item_types: itemTypes } = tile
+  handleItemClick = (item) => {
+    let { name, description, item_types: itemTypes } = item
     let { types, showDialog, } = this.props
-    let filteredTypes = itemTypes.map(itemType => types.find(type => type.id === itemType.type_id))
+    let filteredTypes = {}
+    itemTypes.map(itemType => {
+      filteredTypes[itemType.type_id] = types[itemType.type_id]
+    })
+    let selected = filteredTypes && Object.keys(filteredTypes)[0]
     showDialog({
       title: name,
       acceptCaption: 'Add To Cart',
@@ -18,7 +22,9 @@ class MenuView extends Component {
       open: true,
       content: description,
       itemTypes,
-      item: {...tile, filteredTypes}
+      item: {...item, filteredTypes},
+      filteredTypes,
+      selected
     })
   }
 
@@ -57,7 +63,7 @@ const styles = {
     display: 'flex',
     height: 640,
     margin: 30,
-    flex: 6,
+    flex: 7,
     textAlign: 'left',
     width: 1111
   },

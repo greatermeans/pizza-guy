@@ -82,7 +82,7 @@ const MenuItemList = ({selectedMenuItems, menuItems, onChangeList, handleClick, 
         {
           _.compact(Object.keys(menuItems).map((itemId) => {
             return (
-              selectedMenuItems.find(selectedItemId => itemId === selectedItemId) ? (
+              selectedMenuItems.find(selectedItemId => parseInt(itemId, 10) === selectedItemId) ? (
                 <GridTile
                   key={menuItems[itemId].name}
                   style={styles.gridTile}

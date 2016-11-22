@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, ListItem, Paper} from 'material-ui'
+import { List, ListItem, Paper, Divider } from 'material-ui'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 
@@ -13,8 +13,9 @@ class CartView extends Component {
       <Paper style={styles.menu} zDepth={3} rounded >
         <List>
         {
-          Object.keys(cart).map(item => {
-            let { instructions, quantity, type, } = item
+          Object.keys(cart).map(itemId => {
+            let { instructions, quantity, type, } = cart[itemId]
+            debugger
             return (
               <ListItem
                 leftAvatar={<ContentRemoveCircle/>}
@@ -40,8 +41,8 @@ class CartView extends Component {
 }
 
 const styles = {
-  container: {
-    display: 'flex'
+  menu: {
+    flex: 2
   }
 }
 
