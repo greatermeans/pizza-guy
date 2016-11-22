@@ -63,7 +63,7 @@ const styles = {
     display: 'flex',
     height: 640,
     margin: 30,
-    flex: 7,
+    flex: 8,
     textAlign: 'left',
     width: 1111
   },
