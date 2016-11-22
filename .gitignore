@@ -128,24 +128,3 @@ jspm_packages
 
 # IntelliJ
 /out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-
-
-config.env
-deploy_scripts/
-node_modules/
-.idea
-.vscode
-
-examples/firebase-appengine-nodejs-example/pwc-fso-ctp-pilot-1c31c4131caa.json
