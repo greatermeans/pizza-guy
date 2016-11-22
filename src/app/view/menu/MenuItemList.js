@@ -87,7 +87,7 @@ const MenuItemList = ({selectedMenuItems, menuItems, onChangeList, handleClick, 
                   key={menuItems[itemId].name}
                   style={styles.gridTile}
                   onTouchTap={() => {
-                    handleClick(menuItems[itemId])
+                    handleClick(itemId)
                   }}
                 >
                   <div style={styles.container}>

@@ -7,49 +7,65 @@ import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 class CartView extends Component {
 
   render() {
-    let { cart, items, types, } = this.props
-
+    let { cart, menuItems, types, } = this.props
+    let total = 0
     return (
-      <Paper style={styles.menu} zDepth={3} rounded >
+      <Paper style={styles.cart} zDepth={3} rounded >
         <List>
-        {
-          Object.keys(cart).map(itemId => {
-            let { instructions, quantity, type, } = cart[itemId]
-            debugger
-            return (
-              <ListItem
-                leftAvatar={<ContentRemoveCircle/>}
-                rightIconButton={<EditorModeEdit/>}
-                primaryText={items[item].name}
-                secondaryText={
-                  <p>
-                    <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
-                    I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
-                  </p>
-                }
-                secondaryTextLines={2}
-              />
-            )
-          })
-        }
-
-        <Divider inset={true} />
-      </List>
+          {
+            menuItems[78] && Object.keys(cart).map(itemId => {
+              let { quantity, type } = cart[itemId]
+              let item = menuItems[itemId]
+              let { price } = item.item_types.find(itemType => {
+                return itemType.item_id === parseInt(itemId, 10) && itemType.type_id === parseInt(type, 10)
+              })
+              total += price * quantity
+              return (
+                <ListItem innerDivStyle={styles.root}
+                  key={itemId}
+                  leftIcon={<ContentRemoveCircle style={styles.icon}/>}
+                  primaryText={
+                    <div style={{marginTop: 10}}>
+                      <span style={{fontSize: 16, marginRight: 8}}>{quantity+'x'}</span>
+                      <span style={{fontWeight: 400, fontSize: 20}}>{menuItems[itemId].name}</span>
+                      <span style={{float: 'right', fontSize: 16}}>{quantity*price}</span>
+                    </div>
+                  }
+                />
+              )
+            })
+          }
+          <Divider/>
+          <ListItem
+            primaryText={total}
+          />
+        </List>
       </Paper>
     )
   }
 }
 
 const styles = {
-  menu: {
-    flex: 2
+  cart: {
+    flex: 2,
+    width: 200,
+    marginTop: 15,
+    marginRight: 15
+  },
+  icon: {
+    margin: 2,
+    height: 20,
+    width: 20
+  },
+  root: {
+    paddingLeft: 16
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
-    items: state.items,
+    menuItems: state.menuItems,
     types: state.types
   }
 }

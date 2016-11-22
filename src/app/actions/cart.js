@@ -1,13 +1,13 @@
 import A from '../const/actionTypes'
 
 export default {
-  addItem: (item) => {
+  addItem: (addedItem) => {
     return (dispatch, getState) => {
-      let { id, instructions, quantity, type, } = item
+      let { itemId, instructions, quantity, type, } = addedItem
       let proto = {}
       proto['type'] = A.ADD_ITEM
       proto['item'] = {}
-      proto['item'][id] = { instructions, quantity, type, }
+      proto['item'][itemId] = { instructions, quantity, type, }
       dispatch(proto)
     }
   },

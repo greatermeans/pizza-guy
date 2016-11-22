@@ -7,9 +7,9 @@ import { Paper } from 'material-ui'
 
 class MenuView extends Component {
 
-  handleItemClick = (item) => {
-    let { name, description, item_types: itemTypes } = item
-    let { types, showDialog, } = this.props
+  handleItemClick = (itemId) => {
+    let { types, showDialog, menuItems} = this.props
+    let { name, description, item_types: itemTypes } = menuItems[itemId]
     let filteredTypes = {}
     itemTypes.map(itemType => {
       filteredTypes[itemType.type_id] = types[itemType.type_id]
@@ -22,7 +22,7 @@ class MenuView extends Component {
       open: true,
       content: description,
       itemTypes,
-      item: {...item, filteredTypes},
+      itemId,
       filteredTypes,
       selected
     })
