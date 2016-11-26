@@ -1,5 +1,5 @@
 export default {
-  API: 'http://localhost:3000',
+  API: 'https://onlinedeliveryback.herokuapp.com',
   header: {
     headers: {
       Authorization: sessionStorage.jwtToken

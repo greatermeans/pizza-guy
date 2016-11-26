@@ -10,43 +10,41 @@ class CartView extends Component {
     let { cart, deliverable, menuItems, } = this.props
     let total = 0
     return (
-      <Paper style={styles.paper} zDepth={1} rounded>
-        <div style={{marginLeft: 20, marginRight: 20}}>
-          <CartHeader deliverable={deliverable}/>
-          <Divider/>
-          <div style={{textAlign: 'left', margin: 15, fontWeight: 700}}>Your Bag</div>
-          <Divider/>
-          <List>
-            {
-              menuItems[828] && Object.keys(cart).map(itemId => {
-                let { quantity, type } = cart[itemId]
-                let item = menuItems[itemId]
-                let { price } = item.item_types.find(itemType => {
-                  return itemType.item_id === parseInt(itemId, 10) && itemType.type_id === parseInt(type, 10)
-                })
-                total += price * quantity
-                return (
-                  <ListItem innerDivStyle={styles.listItem}
-                    key={itemId}
-                    leftIcon={<ContentRemoveCircle style={styles.icon}/>}
-                    primaryText={
-                      <div style={{marginTop: 10}}>
-                        <span style={{fontSize: 16, marginRight: 8}}>{quantity + 'x'}</span>
-                        <span style={{fontWeight: 400, fontSize: 20}}>{menuItems[itemId].name}</span>
-                        <span style={{float: 'right', fontSize: 16}}>{quantity * price}</span>
-                      </div>
-                    }
-                  />
-                )
+      <div style={{marginLeft: 20, marginRight: 20, minWidth: 300}}>
+        <CartHeader deliverable={deliverable}/>
+        <Divider/>
+        <div style={{textAlign: 'left', margin: 15, fontWeight: 700}}>Your Bag</div>
+        <Divider/>
+        <List>
+          {
+            menuItems[828] && Object.keys(cart).map(itemId => {
+              let { quantity, type } = cart[itemId]
+              let item = menuItems[itemId]
+              let { price } = item.item_types.find(itemType => {
+                return itemType.item_id === parseInt(itemId, 10) && itemType.type_id === parseInt(type, 10)
               })
-            }
-            <Divider/>
-            <ListItem
-              primaryText={total}
-            />
-          </List>
-        </div>
-      </Paper>
+              total += price * quantity
+              return (
+                <ListItem innerDivStyle={styles.listItem}
+                  key={itemId}
+                  leftIcon={<ContentRemoveCircle style={styles.icon}/>}
+                  primaryText={
+                    <div style={{marginTop: 10}}>
+                      <span style={{fontSize: 16, marginRight: 8}}>{quantity + 'x'}</span>
+                      <span style={{fontWeight: 400, fontSize: 20}}>{menuItems[itemId].name}</span>
+                      <span style={{float: 'right', fontSize: 16}}>{quantity * price}</span>
+                    </div>
+                  }
+                />
+              )
+            })
+          }
+          <Divider/>
+          <ListItem
+            primaryText={total}
+          />
+        </List>
+      </div>
     )
   }
 }
