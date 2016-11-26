@@ -6,16 +6,10 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <div style={styles.container}>
+      <div className={'container'}>
         <WholesomeView/>
         <CartView/>
       </div>
     )
   }
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-  },
 }

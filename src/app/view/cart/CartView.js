@@ -10,7 +10,7 @@ class CartView extends Component {
     let { cart, deliverable, menuItems, } = this.props
     let total = 0
     return (
-      <div style={{marginLeft: 20, marginRight: 20, minWidth: 300}}>
+      <div style={{marginLeft: 20, marginRight: 20, minWidth: 275}}>
         <CartHeader deliverable={deliverable}/>
         <Divider/>
         <div style={{textAlign: 'left', margin: 15, fontWeight: 700}}>Your Bag</div>

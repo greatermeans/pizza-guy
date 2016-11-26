@@ -25,24 +25,26 @@ export default class CourseCard extends Component {
       >
         <CardTitle
           title={courseDetails.name}
-          subtitle={courseDetails.description}
           actAsExpander
           showExpandableButton
+          className={'menuSection-header'}
         />
         <CardText expandable>
-          {
-            Object.keys(menuItems).map(itemId => {
-              debugger
-              return (
-                <div>{menuItems[itemId].name}</div>
-              )
-            })
-          }
+          <div className={'menuItem-container'}>
+            <div className={'menuItem-group'}>
+            {
+              Object.keys(menuItems).map(itemId => {
+                return (
+                  <div className={'menuItem'}>
+                    {menuItems[itemId].name}
+                  </div>
+                )
+              })
+            }
+            </div>
+          </div>
         </CardText>
       </Card>
     )
   }
-}
-
-const styles = {
 }
