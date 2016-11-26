@@ -37,6 +37,7 @@ html {
 body {
   width: 100%;
   height: 100%;
+  background-image: url('../images/pattern-53x53-small-black@35_.png');
 }
 
 .container {
@@ -253,6 +254,8 @@ h1 {
   width: 50%;
   background: #FFF;
   z-index: 1010;
+  cursor: pointer;
+  margin: 2;
 }
 
 .menuItem:nth-child(odd) {
@@ -260,5 +263,35 @@ h1 {
 }
 
 .menuItem:nth-child(even) {
-    border-width: 0 0 1px;
+  border-width: 0 0 1px;
+}
+.menuItem:hover {
+  border: 3px solid #fe0000;
+}
+
+.menuItem-inner {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: 4px solid #FFF;
+  cursor: pointer;
+  padding: 5px 5px 0;
+  width: 100%;
+}
+
+.menuItem-info {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.menuItem-details {
+    margin-left: 25px;
 }

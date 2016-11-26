@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, ListItem, Paper, Divider } from 'material-ui'
+import { List, ListItem, Divider } from 'material-ui'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
 import CartHeader from './CartHeader'
 
@@ -17,7 +17,7 @@ class CartView extends Component {
         <Divider/>
         <List>
           {
-            menuItems[828] && Object.keys(cart).map(itemId => {
+            false && Object.keys(cart).map(itemId => {
               let { quantity, type } = cart[itemId]
               let item = menuItems[itemId]
               let { price } = item.item_types.find(itemType => {

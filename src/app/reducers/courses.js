@@ -1,4 +1,3 @@
-import initialState from '../store/initialState'
 import A from '../const/actionTypes'
 
 export default function (currentState, action) {
@@ -9,6 +8,6 @@ export default function (currentState, action) {
         ...action.data
       }
     default:
-      return currentState || initialState.selectedCourse
+      return currentState || {}
   }
 }

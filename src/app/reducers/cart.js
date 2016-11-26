@@ -1,5 +1,4 @@
 import A from '../const/actionTypes'
-import initialState from '../store/initialState'
 
 export default function (currentState, action) {
   let newState, index
@@ -21,6 +20,6 @@ export default function (currentState, action) {
       newState.splice(index, 1)
       return newState
     default:
-      return currentState || initialState.cart
+      return currentState || {}
   }
 }

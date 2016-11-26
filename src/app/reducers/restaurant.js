@@ -1,5 +1,4 @@
 import A from '../const/actionTypes'
-import initialState from '../store/initialState'
 
 export default function (currentState, action) {
 
@@ -10,6 +9,6 @@ export default function (currentState, action) {
         ...action.data
       }
     default:
-      return currentState || initialState.restaurant
+      return currentState || {}
   }
 }
