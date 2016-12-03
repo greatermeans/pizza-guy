@@ -31,7 +31,7 @@ class MenuView extends Component {
     let { courses, menuItems, } = this.props
 
     return (
-      <div style={{minWidth: 1100, overflow: 'auto', paddingLeft: 35, paddingRight: 10}}>
+      <div style={{minWidth: 1070, overflow: 'auto', paddingLeft: 35, paddingRight: 10}}>
       {
         Object.keys(courses).map(courseId => (
           <CourseCard

@@ -25,25 +25,35 @@ class CartView extends Component {
               })
               total += price * quantity
               return (
-                <ListItem innerDivStyle={styles.listItem}
+                <ListItem
                   key={itemId + ':' + type}
-                  leftIcon={<ContentRemoveCircle style={styles.icon}/>}
+                  className={ 'orderItem' }
+                  style={{border: null, display: null}}
+                  leftIcon={<ContentRemoveCircle className={ 'orderItemRemove' }/>}
                   primaryText={
-                    <div style={{marginTop: 10}}>
-                      <span style={{fontSize: 16, marginRight: 8}}>{quantity + 'x'}</span>
-                      <span style={{fontWeight: 400, fontSize: 20}}>{name}</span>
-                      <span style={{float: 'right', fontSize: 16}}>{quantity * price}</span>
+                    <div style={{display: 'flex'}}>
+                      <span className={ 'orderItemQuantity' }>{quantity + 'x'}</span>
+                      <span className={ 'orderItemName' }>{name}</span>
+                      <span className={ 'orderItemPrice' }>{quantity * price}</span>
                     </div>
                   }
                 />
               )
             })
           }
-          <Divider/>
-          <ListItem
-            primaryText={total}
-          />
         </List>
+        <div className={ 'totalsLines' }>
+          <div className={ 'totalLineName' }>Items Subtotal:</div>
+          <div className={ 'totalLineAmount' }>{total}</div>
+        </div>
+        <div className={ 'totalsLines' }>
+          <div className={ 'totalLineName' }>Sales Tax:</div>
+          <div className={ 'totalLineAmount' }>{total * 0.05}</div>
+        </div>
+        <div className={ 'totalsLines' }>
+          <div className={ 'totalLineName' }>Total:</div>
+          <div className={ 'totalLineAmount' }>{total * 1.05}</div>
+        </div>
       </div>
     )
   }
