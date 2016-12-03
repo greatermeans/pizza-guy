@@ -26,7 +26,7 @@ class CartView extends Component {
               total += price * quantity
               return (
                 <ListItem innerDivStyle={styles.listItem}
-                  key={itemId}
+                  key={itemId + ':' + type}
                   leftIcon={<ContentRemoveCircle style={styles.icon}/>}
                   primaryText={
                     <div style={{marginTop: 10}}>

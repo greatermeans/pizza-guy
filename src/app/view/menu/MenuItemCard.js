@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class MenuItemCard extends Component {
   render() {
-    const { itemDetails, itemId, menuItems} = this.props
+    const { itemDetails, } = this.props
 
     return (
         <div className={'menuItem-inner'}>

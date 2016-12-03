@@ -7,7 +7,7 @@ import _ from 'lodash'
 class MenuView extends Component {
 
   handleItemClick = (itemId) => {
-    let { types, showDialog, menuItems, selectItem} = this.props
+    let { types, showDialog, menuItems, } = this.props
     let { name, description, item_types: itemTypes } = menuItems[itemId]
     let filteredTypes = {}
     itemTypes.map(itemType => {
