@@ -8,7 +8,6 @@ class MenuView extends Component {
 
   handleItemClick = (itemId) => {
     let { types, showDialog, menuItems, selectItem} = this.props
-    debugger
     let { name, description, item_types: itemTypes } = menuItems[itemId]
     let filteredTypes = {}
     itemTypes.map(itemType => {
@@ -32,7 +31,7 @@ class MenuView extends Component {
     let { courses, menuItems, } = this.props
 
     return (
-      <div style={{minWidth: 1100, overflow: 'auto', margin: 15, paddingLeft: 60, paddingRight: 40}}>
+      <div style={{minWidth: 1100, overflow: 'auto', paddingLeft: 35, paddingRight: 10}}>
       {
         Object.keys(courses).map(courseId => (
           <CourseCard

@@ -10,17 +10,17 @@ class CartView extends Component {
     let { cart, deliverable, menuItems, } = this.props
     let total = 0
     return (
-      <div style={{marginLeft: 20, marginRight: 20, minWidth: 275}}>
+      <div className={'cartWrapper'}>
         <CartHeader deliverable={deliverable}/>
         <Divider/>
-        <div style={{textAlign: 'left', margin: 15, fontWeight: 700}}>Your Bag</div>
+        <div style={{textAlign: 'left', margin: 15, fontWeight: 700}}>Your Order</div>
         <Divider/>
         <List>
           {
-            false && Object.keys(cart).map(itemId => {
-              let { quantity, type } = cart[itemId]
-              let item = menuItems[itemId]
-              let { price } = item.item_types.find(itemType => {
+            menuItems[60] && cart.map(item => {
+              let { quantity, type, itemId } = item
+              let { item_types, name } = menuItems[itemId]
+              let { price } = item_types.find(itemType => {
                 return itemType.item_id === parseInt(itemId, 10) && itemType.type_id === parseInt(type, 10)
               })
               total += price * quantity
@@ -31,7 +31,7 @@ class CartView extends Component {
                   primaryText={
                     <div style={{marginTop: 10}}>
                       <span style={{fontSize: 16, marginRight: 8}}>{quantity + 'x'}</span>
-                      <span style={{fontWeight: 400, fontSize: 20}}>{menuItems[itemId].name}</span>
+                      <span style={{fontWeight: 400, fontSize: 20}}>{name}</span>
                       <span style={{float: 'right', fontSize: 16}}>{quantity * price}</span>
                     </div>
                   }

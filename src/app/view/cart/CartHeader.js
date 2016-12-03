@@ -32,7 +32,7 @@ const styles = {
 const CartHeader = ({deliverable}) => {
 
   return (
-    <div style={styles.cartHeader}>
+    <div className={'cartHeader'}>
       <Toggle
         label={'Take Out'}
         defaultToggled={deliverable}

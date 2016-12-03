@@ -35,13 +35,11 @@ export default class CourseCard extends Component {
             <div className={'menuItem-group'}>
             {
               Object.keys(menuItems).map(itemId => {
-                debugger
                 return (
-                  <div className={'menuItem'} onClick={() => { handleItemClick(itemId) }}>
+                  <div key={itemId} className={'menuItem'} onClick={() => { handleItemClick(itemId) }}>
                     <MenuItemCard
                       itemDetails={menuItems[itemId]}
                       itemId={itemId}
-                      key={itemId}
                     />
                   </div>
                 )

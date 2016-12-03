@@ -26,10 +26,6 @@ export default {
           type: A.CACHE_COURSES,
           data
         })
-        dispatch({
-          type: A.UPDATE_SELECTED_COURSE,
-          courseId
-        })
       })
       axios.get(`${globalConfig.API}/items`, config)
       .then((response) => {

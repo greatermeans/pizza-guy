@@ -1,14 +1,27 @@
 import A from '../const/actionTypes'
+import _ from 'lodash'
 
 export default {
   addItem: (addedItem) => {
     return (dispatch, getState) => {
       let { itemId, instructions, quantity, type, } = addedItem
-      let proto = {}
-      proto['type'] = A.ADD_ITEM
-      proto['item'] = {}
-      proto['item'][itemId] = { instructions, quantity, type, }
-      dispatch(proto)
+      let matchedItem = getState().cart.filter(cartItem =>
+        cartItem.itemId === itemId
+      ).find(item => item.type === type)
+      let newQuantity = matchedItem ? matchedItem.quantity + quantity : quantity
+      let item = {itemId, instructions, quantity: newQuantity, type, }
+      let updatedItemIndex = matchedItem ? _.findIndex(getState().cart,
+        { 'itemId': itemId, 'type': type }) : null
+      updatedItemIndex ?
+        dispatch({
+          type: A.UPDATE_ITEM,
+          updatedItemIndex,
+          item
+        }) :
+        dispatch({
+          type: A.ADD_ITEM,
+          item,
+        })
     }
   },
   changeQuantity: ({item, quantity}) => {

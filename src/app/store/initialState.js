@@ -1,5 +1,5 @@
 export default {
-  cart: { 828: {instructions: 'hey girl', quantity: 3, type: '73'} },
+  cart: [ {itemId: 60, instructions: 'hey girl', quantity: 3, type: '8'} ],
   courses: {},
   menuItems: {},
   restaurant: {},

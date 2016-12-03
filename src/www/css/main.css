@@ -210,6 +210,10 @@ h1 {
   background: #f5f5f5;
 }
 
+/**
+ * Menu Items
+ */
+
 .menuSection-header {
   display: -webkit-box;
   display: -webkit-flex;
@@ -294,4 +298,48 @@ h1 {
 
 .menuItem-details {
     margin-left: 25px;
+}
+
+/**
+ * Cart View
+ */
+.cartWrapper {
+  min-width: 280px;
+  background-color: #fff;
+  font-size: 14px;
+  line-height: 18px;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  border-radius: 2px;
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-right: 30px;
+}
+
+.cartHeader {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.toggle {
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
+.delivery-takeout {
+  display: flex;
+  margin: 0 0 10px;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+}
+
+.address {
+  flex: 1 1 100%;
+  margin: 0 0 10px;
+  text-align: center;
 }

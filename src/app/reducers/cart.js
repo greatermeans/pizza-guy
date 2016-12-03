@@ -5,21 +5,22 @@ export default function (currentState, action) {
 
   switch (action.type) {
     case A.ADD_ITEM:
-      return {
+      return [
         ...currentState,
-        ...action.item
-      }
-    case A.CHANGE_QUANTITY:
-      newState = [].concat(currentState)
-      index = newState.indexOf(action.item)
-      newState[index].quantity = action.quantity
-      return newState
+        action.item
+      ]
+    case A.UPDATE_ITEM:
+      let updatedState = currentState
+      updatedState[action.updatedItemIndex] = action.item
+      return [
+        ...updatedState
+      ]
     case A.REMOVE_ITEM:
       newState = [].concat(currentState) // CODE IS REUSED, REFACTOR
       index = newState.indexOf(action.payload)
       newState.splice(index, 1)
       return newState
     default:
-      return currentState || {}
+      return currentState || []
   }
 }
