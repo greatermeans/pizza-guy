@@ -31,7 +31,7 @@ class MenuView extends Component {
     let { courses, menuItems, } = this.props
 
     return (
-      <div style={{minWidth: 1070, overflow: 'auto', paddingLeft: 35, paddingRight: 10}}>
+      <div className={ 'menuViewContainer' }>
       {
         Object.keys(courses).map(courseId => (
           <CourseCard
@@ -60,7 +60,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    selectItem: (id) => dispatch(actions.selectItem(id)),
     showDialog: (dialog) => dispatch(actions.showDialog(dialog)),
   }
 }

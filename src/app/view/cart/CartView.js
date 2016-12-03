@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { List, ListItem, Divider } from 'material-ui'
+import actions from '../../actions'
+import { Divider, FlatButton, RaisedButton } from 'material-ui'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import CartHeader from './CartHeader'
 
 class CartView extends Component {
 
   render() {
-    let { cart, deliverable, menuItems, } = this.props
+    let { cart, clearCart, deliverable, menuItems, } = this.props
     let total = 0
     return (
       <div className={'cartWrapper'}>
@@ -15,8 +17,9 @@ class CartView extends Component {
         <Divider/>
         <div style={{textAlign: 'left', margin: 15, fontWeight: 700}}>Your Order</div>
         <Divider/>
-        <List>
-          {
+        <div className={ 'orderItemContainer' }>
+          <div className={ 'orderItem' }>
+          { !cart.length ? <div className={ 'cartEmpty' }>Your Cart is Empty!</div> :
             menuItems[60] && cart.map(item => {
               let { quantity, type, itemId } = item
               let { item_types, name } = menuItems[itemId]
@@ -25,55 +28,40 @@ class CartView extends Component {
               })
               total += price * quantity
               return (
-                <ListItem
-                  key={itemId + ':' + type}
-                  className={ 'orderItem' }
-                  style={{border: null, display: null}}
-                  leftIcon={<ContentRemoveCircle className={ 'orderItemRemove' }/>}
-                  primaryText={
-                    <div style={{display: 'flex'}}>
-                      <span className={ 'orderItemQuantity' }>{quantity + 'x'}</span>
-                      <span className={ 'orderItemName' }>{name}</span>
-                      <span className={ 'orderItemPrice' }>{quantity * price}</span>
-                    </div>
-                  }
-                />
+                <div className={ 'orderItemDetails' } key={itemId + ':' + type}>
+                  <ContentRemoveCircle style={{margin: null}} className={ 'orderItemRemove' }/>
+                  <span className={ 'orderItemQuantity' }>{quantity}</span>
+                  <span className={ 'orderItemName' }>{name}<EditorModeEdit style={{height: 18, width: 18}}/></span>
+                  <span className={ 'orderItemPrice' }>{quantity * price}</span>
+                </div>
               )
             })
           }
-        </List>
-        <div className={ 'totalsLines' }>
-          <div className={ 'totalLineName' }>Items Subtotal:</div>
-          <div className={ 'totalLineAmount' }>{total}</div>
+          </div>
         </div>
-        <div className={ 'totalsLines' }>
-          <div className={ 'totalLineName' }>Sales Tax:</div>
-          <div className={ 'totalLineAmount' }>{total * 0.05}</div>
+        <div className={ 'totalsContainer' }>
+          <div className={ 'totalsLines' }>
+            <div className={ 'totalLineName' }>Items Subtotal:</div>
+            <div className={ 'totalLineAmount' }>{total}</div>
+          </div>
+          <div className={ 'totalsLines' }>
+            <div className={ 'totalLineName' }>Sales Tax:</div>
+            <div className={ 'totalLineAmount' }>{total * 0.05}</div>
+          </div>
+          <div className={ 'totalsLines' }>
+            <div className={ 'totalLineName' }>Total:</div>
+            <div className={ 'totalLineAmount' }>{total * 1.05}</div>
+          </div>
         </div>
-        <div className={ 'totalsLines' }>
-          <div className={ 'totalLineName' }>Total:</div>
-          <div className={ 'totalLineAmount' }>{total * 1.05}</div>
+        <div style={{textAlign: '-webkit-auto', marginBottom: 15}}>
+          <FlatButton style={{color: 'blue'}} label={'Clear Cart'} hoverColor={'white'} onClick={() => {clearCart()}} />
+        </div>
+        <div className={ 'cartFooter' }>
+          <RaisedButton primary label={'Proceed to Checkout: ' + (total * 1.05)} onClick={() => {clearCart()}} />
         </div>
       </div>
     )
   }
-}
-
-const styles = {
-  icon: {
-    margin: 2,
-    height: 20,
-    width: 20
-  },
-  listItem: {
-    paddingLeft: 16
-  },
-  paper: {
-    flex: 1.5,
-    height: 640,
-    marginTop: 30,
-    marginRight: 30
-  },
 }
 
 const mapStateToProps = (state) => {
@@ -85,4 +73,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(CartView)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearCart: () => dispatch(actions.clearCart()),
+    showDialog: (dialog) => dispatch(actions.showDialog(dialog)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartView)

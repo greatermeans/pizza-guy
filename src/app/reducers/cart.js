@@ -13,6 +13,9 @@ export default function (currentState, action) {
       return [
         ...updatedState
       ]
+    case A.CLEAR_CART:
+      updatedState = []
+      return updatedState
     default:
       return currentState || []
   }

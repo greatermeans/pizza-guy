@@ -41,4 +41,11 @@ export default {
       })
     }
   },
+  clearCart: () => {
+    return (dispatch, getState) => {
+      dispatch({
+        type: A.CLEAR_CART
+      })
+    }
+  },
 }

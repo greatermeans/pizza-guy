@@ -44,7 +44,7 @@ body {
   -webkit-transition: opacity .3s ease-out;
   transition: opacity .3s ease-out;
   opacity: 1;
-  height: 87vh;
+  height: 86vh;
   width: 100vw;
   display: flex;
 }
@@ -214,6 +214,13 @@ h1 {
  * Menu Items
  */
 
+ .menuViewContainer {
+   min-width: 1070px;
+   overflow: auto;
+   padding-left: 35px;
+   padding-right: 10px;
+ }
+
 .menuSection-header {
   display: -webkit-box;
   display: -webkit-flex;
@@ -326,6 +333,17 @@ h1 {
   flex-wrap: wrap;
 }
 
+.cartFooter {
+    z-index: 10;
+    width: 100%;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    padding: 15px;
+    border-top: 1px solid #efefef;
+}
+
 .toggle {
   -ms-flex: 1 1 100%;
   flex: 1 1 100%;
@@ -344,18 +362,36 @@ h1 {
   text-align: center;
 }
 
+.cartEmpty {
+  font-size: 24px;
+  padding: 16px 45px;
+  margin: 0;
+}
+.orderItemContainer {
+  overflow-y: auto;
+  max-height: 400px;
+}
+
 .orderItem {
-  border-bottom: 1px dotted #e5e5e5;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   width: 100%;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 15px;
+  overflow-y: auto;
+}
+
+.orderItemDetails {
+  display: flex;
+  flex: 1;
 }
 
 .orderItemRemove {
@@ -363,6 +399,9 @@ h1 {
   -webkit-flex: 0 0 40px;
   -ms-flex: 0 0 40px;
   flex: 0 0 40px;
+  margin: 12px;
+  margin-right: 8px;
+  margin-top: 14px;
 }
 
 .orderItemQuantity {
@@ -380,12 +419,24 @@ h1 {
   -ms-flex: 1;
   flex: 1;
   padding: 20px 10px;
+  min-width: 180px;
+  display: flex;
 }
 
 .orderItemPrice {
   color: #777;
   padding: 20px 20px 20px 10px;
+  white-space: nowrap;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 30px;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
   text-align: right;
+}
+
+.totalsContainer {
+  border-top: 1px dotted #e5e5e5;
+  margin-top: 10px;
 }
 
 .totalsLines {
@@ -395,9 +446,11 @@ h1 {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  margin-right: 35px;
+  margin-left: 20px;
 }
 
 .totalLineAmount {
@@ -414,4 +467,5 @@ h1 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
+  text-align: left;
 }
