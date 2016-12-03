@@ -54,10 +54,20 @@ class CartView extends Component {
             <div className={ 'totalLineAmount' }>{total * 1.05}</div>
           </div>
           <div style={{textAlign: '-webkit-auto'}}>
-            <FlatButton style={{color: 'blue'}} label={'Clear Cart'} hoverColor={'white'} onClick={() => {clearCart()}} />
+            <FlatButton
+              style={{color: 'blue'}}
+              label={'Clear Cart'}
+              hoverColor={'white'}
+              onClick={() => {clearCart()}}
+              />
           </div>
           <Divider style={{marginTop: 15}} />
-          <RaisedButton style={{marginTop: 15, marginBottom: 15}} primary label={'Proceed to Checkout: ' + (total * 1.05)} onClick={() => {clearCart()}} />
+          <RaisedButton
+            style={{marginTop: 15, marginBottom: 15}}
+            primary
+            label={'Proceed to Checkout: ' + (total * 1.05)}
+            onClick={() => {clearCart()}}
+          />
         </div>
       </div>
     )
