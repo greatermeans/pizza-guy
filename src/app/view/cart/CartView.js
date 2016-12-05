@@ -32,7 +32,7 @@ class CartView extends Component {
   }
 
   render() {
-    let { cart, clearCart, deliverable, menuItems, removeItem } = this.props
+    let { cart, clearCart, deliverable, menuItems, removeItem, types } = this.props
     let cartTotal = 0
     let taxRate = 0.05
 
@@ -57,14 +57,21 @@ class CartView extends Component {
               return (
                 <div className={ 'orderItemDetails' } key={itemId + ':' + type}>
                   <ContentRemoveCircle
-                    style={{margin: null, cursor: 'pointer'}}
+                    style={{margin: null, height: 20}}
                     className={ 'orderItemRemove' }
                     onClick={() => {removeItem(itemId, type)}}
                   />
                   <span className={ 'orderItemQuantity' }>{quantity}</span>
-                  <span className={ 'orderItemName' } onClick={() => {this.handleEditItem(item)}}>
-                    {name}<EditorModeEdit style={{height: 18, width: 18}}/>
-                  </span>
+                  <div className={ 'orderItemNameContainer' }>
+                    <span className={ 'orderItemName' } onClick={() => {this.handleEditItem(item)}}>
+                      {name}<EditorModeEdit style={{height: 18, width: 18}}/>
+                    </span>
+                    <ul className={ 'orderItemDescription' }>
+                      <li>
+                        {types[type] && types[type].name}
+                      </li>
+                    </ul>
+                  </div>
                   <span className={ 'orderItemPrice' }>{itemTotal}</span>
                 </div>
               )
