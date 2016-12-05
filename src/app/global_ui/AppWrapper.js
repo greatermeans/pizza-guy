@@ -63,6 +63,7 @@ class AppWrapper extends Component {
           <ToolbarGroup firstChild>
             <img style={styles.logo} src={'/images/pizzaguy-logo.png'}/>
             <EnterAddress checkDeliveryZone={checkDeliveryZone} deliverable={deliverable}/>
+            { buttonLabel ?
             <RadioButtonGroup name={'delivery'} valueSelected={deliverable ? 'pizza' : ''}>
               <RadioButton
                 value="pizza"
@@ -71,11 +72,11 @@ class AppWrapper extends Component {
                 uncheckedIcon={<MapsLocalPizza />}
                 style={styles.radioButton}
               />
-            </RadioButtonGroup>
+            </RadioButtonGroup> : null
+          }
           </ToolbarGroup>
           <ToolbarGroup style={styles.secondGroup}>
-            <RaisedButton label={'Sign Up'} primary/>
-            <RaisedButton label={'Log In'} primary/>
+            <RaisedButton label={'Sign In'} primary/>
           </ToolbarGroup>
         </Toolbar>
         {React.cloneElement(children, {
@@ -112,8 +113,8 @@ const styles = {
     marginLeft: 20
   },
   radioButton: {
-    marginLeft: 100,
-    marginTop: 35,
+    marginLeft: 110,
+    marginTop: 15,
     width: '75%',
     minWidth: '75%'
   },

@@ -14,9 +14,11 @@ export default class GlobalDialog extends Component {
   }
 
   componentWillReceiveProps(nextProps, nextState) {
-    const { selected, } = nextProps.dialog
+    const { selected, instructions, quantity } = nextProps.dialog
     this.setState({
-      type: selected
+      type: selected,
+      quantity: quantity || this.state.quantity,
+      instructions: instructions || this.state.instructions
     })
   }
 
@@ -51,9 +53,15 @@ export default class GlobalDialog extends Component {
             keyboardFocused
             onTouchTap={() => {
               hideDialog()
-              addItem({...this.state, itemId: dialog.itemId})
+              this.setState({
+                quantity: 1,
+                instructions: '',
+                type: null
+              })
               if (dialog.acceptCallback) {
-                dialog.acceptCallback()
+                dialog.acceptCallback({...this.state, itemId: dialog.itemId})
+              } else {
+                addItem({...this.state, itemId: dialog.itemId})
               }
             }}
           />,
@@ -117,6 +125,7 @@ export default class GlobalDialog extends Component {
           rows={4}
           rowsMax={5}
           fullWidth
+          value={this.state.instructions}
           onChange={(event, value)=> {
             this.setState({instructions: value})
           }}

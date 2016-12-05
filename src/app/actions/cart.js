@@ -12,7 +12,7 @@ export default {
       let item = {itemId, instructions, quantity: newQuantity, type, }
       let updatedItemIndex = matchedItem ? _.findIndex(getState().cart,
         { 'itemId': itemId, 'type': type }) : null
-      updatedItemIndex ?
+      matchedItem ?
         dispatch({
           type: A.UPDATE_ITEM,
           updatedItemIndex,
@@ -33,18 +33,35 @@ export default {
       })
     }
   },
-  removeItem: (item) => {
-    return (dispatch, getState) => {
-      dispatch({
-        type: A.REMOVE_ITEM,
-        item
-      })
-    }
-  },
   clearCart: () => {
     return (dispatch, getState) => {
       dispatch({
         type: A.CLEAR_CART
+      })
+    }
+  },
+  removeItem: (itemId, typeId) => {
+    return (dispatch, getState) => {
+      let itemIndex = _.findIndex(getState().cart, { 'itemId': itemId, 'type': typeId })
+      dispatch({
+        type: A.REMOVE_ITEM,
+        itemIndex
+      })
+    }
+  },
+  updateItem: (addedItem) => {
+    return (dispatch, getState) => {
+      let { itemId, instructions, quantity, type, } = addedItem
+      let matchedItem = getState().cart.filter(cartItem =>
+        cartItem.itemId === itemId
+      ).find(item => item.type === type)
+      let item = {itemId, instructions, quantity, type, }
+      let updatedItemIndex = matchedItem ? _.findIndex(getState().cart,
+        { 'itemId': itemId, 'type': type }) : null
+      dispatch({
+        type: A.UPDATE_ITEM,
+        updatedItemIndex,
+        item
       })
     }
   },

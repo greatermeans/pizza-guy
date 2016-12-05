@@ -4,8 +4,7 @@ import Geosuggest from 'react-geosuggest'
 const styles = {
   addressSearch: {
     width: 250,
-    marginLeft: 30,
-    marginTop: 13
+    marginLeft: 20,
   }
 }
 

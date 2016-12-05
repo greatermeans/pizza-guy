@@ -92,7 +92,7 @@ h1 {
   width: 100%;
   border: 2px solid transparent;
   box-shadow: 0 0 1px #3d464d;
-  padding: .5em 1em;
+  padding: 1.3em 0.9em;
   -webkit-transition: border 0.2s, box-shadow 0.2s;
           transition: border 0.2s, box-shadow 0.2s;
 }
@@ -423,6 +423,11 @@ h1 {
   padding: 20px 10px;
   min-width: 180px;
   display: flex;
+}
+
+.orderItemName:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .orderItemPrice {
