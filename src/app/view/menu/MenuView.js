@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import actions from '../../actions'
 import CourseCard from './CourseCard'
 import _ from 'lodash'
+import { CircularProgress } from 'material-ui'
 
 class MenuView extends Component {
 
@@ -32,7 +33,7 @@ class MenuView extends Component {
 
     return (
       <div className={ 'menuViewContainer' }>
-      {
+      { !Object.keys(menuItems).length ? <CircularProgress style={{paddingTop: 50}} size={ 60 } /> :
         Object.keys(courses).map(courseId => (
           <CourseCard
             courseDetails={courses[courseId]}
