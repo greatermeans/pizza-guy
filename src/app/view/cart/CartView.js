@@ -32,7 +32,7 @@ class CartView extends Component {
   }
 
   render() {
-    let { cart, clearCart, deliverable, menuItems, removeItem, types } = this.props
+    let { cart, clearCart, deliverable, menuItems, removeItem, routeTo, types } = this.props
     let cartTotal = 0
     let taxRate = 0.05
 
@@ -106,7 +106,7 @@ class CartView extends Component {
             style={{marginTop: 15, marginBottom: 15}}
             primary
             label={'Proceed to Checkout: ' + (cartTotal * (1 + taxRate))}
-            onClick={() => {}} //needs to change
+            onClick={() => {routeTo('checkout')}} //needs to change
           />
         </div>
       </div>
@@ -127,6 +127,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     clearCart: () => dispatch(actions.clearCart()),
     removeItem: (itemId, typeId) => dispatch(actions.removeItem(itemId, typeId)),
+    routeTo: (route) => dispatch(actions.routeTo(route)),
     showDialog: (dialog) => dispatch(actions.showDialog(dialog)),
     updateItem: (item) => dispatch(actions.updateItem(item)),
   }

@@ -81,6 +81,7 @@ class AppWrapper extends Component {
         </Toolbar>
         {React.cloneElement(children, {
           onChangeMuiTheme: this.handleChangeMuiTheme,
+          auth: this.props.route.auth
         })}
         <Snackbar
           bodyStyle={styles.snackbarBody}
