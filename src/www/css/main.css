@@ -48,6 +48,8 @@ body {
   width: 100vw;
   display: flex;
   overflow: hidden;
+  padding-top: 30px;
+  padding-left: 30px;
 }
 
 a {
@@ -216,9 +218,8 @@ h1 {
  */
 
  .menuViewContainer {
-   min-width: 1070px;
+   min-width: 1040px;
    overflow-y: auto;
-   padding-left: 35px;
  }
 
 .menuSection-header {
@@ -234,7 +235,6 @@ h1 {
   border-color: #cacaca;
   background: #efefef;
   margin-bottom: 0;
-  margin-top: 30px;
   cursor: pointer;
 }
 
@@ -318,7 +318,6 @@ h1 {
   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
   border-radius: 2px;
   margin-left: 20px;
-  margin-top: 30px;
   margin-right: 30px;
   position: relative;
 }
@@ -490,4 +489,47 @@ h1 {
   -ms-flex: 1;
   flex: 1;
   text-align: left;
+}
+
+/**
+ * checkout
+ */
+
+ .newAddress {
+   min-width: 1040px;
+   background-color: #f7f7f7;
+ }
+
+.checkoutChangeOrder {
+  color: #FFF;
+  background: #399;
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.checkoutTotal {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  width: 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-transform: uppercase;
+  background-color: #333;
+  color: #FFF;
+  padding: 15px 20px 15px!important;
 }

@@ -4,6 +4,7 @@ import actions from '../../actions'
 import { Divider, FlatButton, RaisedButton } from 'material-ui'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
+import KeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import CartHeader from './CartHeader'
 import _ from 'lodash'
 
@@ -32,9 +33,10 @@ class CartView extends Component {
   }
 
   render() {
-    let { cart, clearCart, deliverable, menuItems, removeItem, routeTo, types } = this.props
+    let { cart, clearCart, deliverable, menuItems, removeItem, routeTo, routing, types } = this.props
     let cartTotal = 0
     let taxRate = 0.05
+    let route = routing.locationBeforeTransitions.pathname
 
     return (
       <div className={'cartWrapper'}>
@@ -93,21 +95,38 @@ class CartView extends Component {
             <div className={ 'totalLineName' }>Total:</div>
             <div className={ 'totalLineAmount' }>{cartTotal * (1 + taxRate)}</div>
           </div>
-          <div style={{textAlign: '-webkit-auto'}}>
-            <FlatButton
-              style={{color: 'blue'}}
-              label={'Clear Cart'}
-              hoverColor={'white'}
-              onClick={() => {clearCart()}}
+          { route === '/checkout' ?
+            (<div style={{marginTop: 20}}>
+              <div className={ 'checkoutChangeOrder' } onClick={() => {routeTo('')}}>
+                <KeyboardArrowLeft style={{color: 'white', marginBottom: -5}} />Modify Your Order
+              </div>
+              <div className={ 'checkoutTotal' }>
+                <div className={ 'totalLineName' }><h3>Total:</h3></div>
+                <div className= { 'totalLineAmount' }>
+                  <h3>{cartTotal * (1 + taxRate)}</h3>
+                </div>
+              </div>
+            </div>
+            ) :
+            (<div>
+              <div style={{textAlign: '-webkit-auto'}}>
+                <FlatButton
+                  style={{color: 'blue'}}
+                  label={'Clear Cart'}
+                  hoverColor={'white'}
+                  onClick={() => {clearCart()}}
+                  />
+              </div>
+              <Divider style={{marginTop: 15}} />
+              <RaisedButton
+                style={{marginTop: 15, marginBottom: 15}}
+                primary
+                label={'Proceed to Checkout: ' + (cartTotal * (1 + taxRate))}
+                onClick={() => {routeTo('checkout')}} //needs to change
               />
-          </div>
-          <Divider style={{marginTop: 15}} />
-          <RaisedButton
-            style={{marginTop: 15, marginBottom: 15}}
-            primary
-            label={'Proceed to Checkout: ' + (cartTotal * (1 + taxRate))}
-            onClick={() => {routeTo('checkout')}} //needs to change
-          />
+            </div>
+            )
+          }
         </div>
       </div>
     )
@@ -119,6 +138,7 @@ const mapStateToProps = (state) => {
     cart: state.cart,
     deliverable: state.user.deliverable,
     menuItems: state.menuItems,
+    routing: state.routing,
     types: state.types
   }
 }

@@ -23,6 +23,7 @@ export default class CourseCard extends Component {
         expanded={this.state.expanded}
         onExpandChange={this.handleExpandChange}
         key={courseId}
+        containerStyle={{marginBottom: 30}}
       >
         <CardTitle
           title={courseDetails.name}

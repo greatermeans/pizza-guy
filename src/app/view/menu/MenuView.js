@@ -33,7 +33,8 @@ class MenuView extends Component {
 
     return (
       <div className={ 'menuViewContainer' }>
-      { !Object.keys(menuItems).length ? <CircularProgress style={{paddingTop: 50}} size={ 60 } /> :
+      { !Object.keys(menuItems).length ?
+        <CircularProgress style={{paddingTop: 50}} size={ 60 } /> :
         Object.keys(courses).map(courseId => (
           <CourseCard
             courseDetails={courses[courseId]}
