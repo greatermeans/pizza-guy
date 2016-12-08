@@ -497,7 +497,13 @@ h1 {
 
  .newAddress {
    min-width: 1040px;
-   background-color: #f7f7f7;
+   background-color: white;
+   text-align: left;
+   padding: 25px;
+ }
+
+ .newAddressHeader {
+   display: flex;
  }
 
 .checkoutChangeOrder {
@@ -532,4 +538,28 @@ h1 {
   background-color: #333;
   color: #FFF;
   padding: 15px 20px 15px!important;
+}
+
+.section-title-cont {
+  background-image: -webkit-radial-gradient(circle,#cacaca 1px,#FFF 1px);
+  background-image: radial-gradient(circle,#cacaca 1px,#FFF 1px);
+  background-repeat: repeat-x;
+  background-position: center center;
+  background-size: 5px 2px;
+}
+
+.sectionTitle {
+  background-color: white;
+  width: 80px;
+}
+
+.flexDisplay {
+  display: flex;
+  justify-content: center;
+}
+
+.textField {
+  flex: 1;
+  max-width: 350px;
+  margin: 10px 40px;
 }
