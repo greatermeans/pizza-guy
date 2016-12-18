@@ -4,7 +4,21 @@ export default {
   menuItems: {},
   restaurant: {},
   user: {
-    deliverable: null
+    firstName: null,
+    lastName: null,
+    phone: null,
+    email: null,
+    address: {
+      deliverable: null,
+      street: null,
+      secondary: null,
+      city: null,
+      country: 'SWEDEN',
+      postal: null,
+      type: null,
+      save: null,
+      instructions: null,
+    }
   },
   dialog: {
     open: false,

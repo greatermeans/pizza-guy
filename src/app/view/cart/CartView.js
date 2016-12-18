@@ -32,8 +32,31 @@ class CartView extends Component {
     })
   }
 
+  handleItemRemoval = (itemId, type) => {
+    let itemName = this.props.menuItems[itemId].name
+    this.props.showDialog({
+      acceptCaption: 'Remove Item',
+      acceptCallback: this.props.removeItem,
+      itemId,
+      rejectCaption: 'Keep Item',
+      type,
+      content: `Are you sure you want to remove ${itemName} from your cart?`,
+      simple: true
+    })
+  }
+
+  handleClearCart = () => {
+    this.props.showDialog({
+      content: 'Are you sure you want to remove ALL ITEMS from your cart?',
+      acceptCaption: 'Clear Cart',
+      acceptCallback: this.props.clearCart,
+      rejectCaption: 'Keep Items',
+      simple: true
+    })
+  }
+
   render() {
-    let { cart, clearCart, deliverable, menuItems, removeItem, routeTo, routing, types } = this.props
+    let { cart, deliverable, menuItems, routeTo, routing, types } = this.props
     let cartTotal = 0
     let taxRate = 0.05
     let route = routing.locationBeforeTransitions.pathname
@@ -61,7 +84,7 @@ class CartView extends Component {
                   <ContentRemoveCircle
                     style={{margin: null, height: 20}}
                     className={ 'orderItemRemove' }
-                    onClick={() => {removeItem(itemId, type)}}
+                    onClick={() => {this.handleItemRemoval(itemId, type)}}
                   />
                   <span className={ 'orderItemQuantity' }>{quantity}</span>
                   <div className={ 'orderItemNameContainer' }>
@@ -114,7 +137,7 @@ class CartView extends Component {
                   style={{color: 'blue'}}
                   label={'Clear Cart'}
                   hoverColor={'white'}
-                  onClick={() => {clearCart()}}
+                  onClick={this.handleClearCart.bind(this)}
                   />
               </div>
               <Divider style={{marginTop: 15}} />
@@ -136,7 +159,7 @@ class CartView extends Component {
 const mapStateToProps = (state) => {
   return {
     cart: state.cart,
-    deliverable: state.user.deliverable,
+    deliverable: state.user.address.deliverable,
     menuItems: state.menuItems,
     routing: state.routing,
     types: state.types

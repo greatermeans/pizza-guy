@@ -25,15 +25,18 @@ export default class GlobalDialog extends Component {
   render() {
     const { addItem, dialog, hideDialog, } = this.props
     const { quantity, } = this.state
-    const { itemTypes, filteredTypes, selected } = dialog
+    const {
+      acceptCallback, acceptCaption, content, filteredTypes, itemId, itemTypes,
+      open, rejectCallback, rejectCaption, selected, simple, title, type
+    } = dialog
 
     return (
       <Dialog
-        title={dialog.title}
+        title={title}
         titleStyle={styles.title}
         actions={[
           <FlatButton
-            label={dialog.rejectCaption || ' '}
+            label={rejectCaption || ' '}
             primary
             onTouchTap={() => {
               hideDialog()
@@ -42,13 +45,13 @@ export default class GlobalDialog extends Component {
                 instructions: '',
                 type: null
               })
-              if (dialog.rejectCallback) {
-                dialog.rejectCallback()
+              if (rejectCallback) {
+                rejectCallback()
               }
             }}
           />,
           <FlatButton
-            label={dialog.acceptCaption || ' '}
+            label={acceptCaption || ' '}
             primary
             keyboardFocused
             onTouchTap={() => {
@@ -58,15 +61,17 @@ export default class GlobalDialog extends Component {
                 instructions: '',
                 type: null
               })
-              if (dialog.acceptCallback) {
-                dialog.acceptCallback({...this.state, itemId: dialog.itemId})
+              if (acceptCallback && type) {
+                acceptCallback(itemId, type)
+              } else if (acceptCallback) {
+                acceptCallback({...this.state, itemId})
               } else {
-                addItem({...this.state, itemId: dialog.itemId})
+                addItem({...this.state, itemId})
               }
             }}
           />,
         ]}
-        open={dialog.open || false}
+        open={open || false}
         onRequestClose={() => {
           hideDialog()
           this.setState({
@@ -77,59 +82,63 @@ export default class GlobalDialog extends Component {
         }}
       >
         <div style={styles.itemDescription}>
-          {dialog.content}
+          {content}
         </div>
-        <RadioButtonGroup
-          name={'type'}
-          defaultSelected={selected}
-          onChange={(event, value) => {this.setState({type: value})}}
-          style={styles.radioGroup}
-        >
-          {
-            filteredTypes && Object.keys(filteredTypes).map(filteredTypeId => {
-              let price = itemTypes.find(itemType => itemType.type_id === parseInt(filteredTypeId, 10)).price
-              return (
-                <RadioButton
-                  key={filteredTypeId}
-                  value={filteredTypeId}
-                  label={filteredTypes[filteredTypeId].name + ': ' + (price * quantity) + 'kr'}
-                />
-              )
-            })
-          }
-        </RadioButtonGroup>
-        <div style={styles.quantityContainer}>
-          <IconButton onTouchTap={()=> {
-            let newCounter = quantity === 1 ? quantity : quantity - 1
-            this.setState({quantity: newCounter})
-          }}>
-            <ContentRemove />
-          </IconButton>
-          <div style={styles.quantity}>
-            {quantity}
+        { simple ? null :
+          <div>
+            <RadioButtonGroup
+              name={'type'}
+              defaultSelected={selected}
+              onChange={(event, value) => {this.setState({type: value})}}
+              style={styles.radioGroup}
+            >
+              {
+                filteredTypes && Object.keys(filteredTypes).map(filteredTypeId => {
+                  let price = itemTypes.find(itemType => itemType.type_id === parseInt(filteredTypeId, 10)).price
+                  return (
+                    <RadioButton
+                      key={filteredTypeId}
+                      value={filteredTypeId}
+                      label={filteredTypes[filteredTypeId].name + ': ' + (price * quantity) + 'kr'}
+                    />
+                  )
+                })
+              }
+            </RadioButtonGroup>
+            <div style={styles.quantityContainer}>
+              <IconButton onTouchTap={()=> {
+                let newCounter = quantity === 1 ? quantity : quantity - 1
+                this.setState({quantity: newCounter})
+              }}>
+                <ContentRemove />
+              </IconButton>
+              <div style={styles.quantity}>
+                {quantity}
+              </div>
+              <IconButton onTouchTap={()=> {
+                let newCounter = quantity > 20 ? quantity : quantity + 1
+                this.setState({quantity: newCounter})
+              }}>
+                <ContentAdd />
+              </IconButton>
+            </div>
+            <TextField
+              hintText={
+                'No pepporoni? Dressing on the side?\
+                 Let us know here. Note: any price alterations due to special requests \
+                 will be charged after your order is processed.'
+               }
+              floatingLabelText={'Add Special Instructions Here!'}
+              rows={4}
+              rowsMax={5}
+              fullWidth
+              value={this.state.instructions}
+              onChange={(event, value)=> {
+                this.setState({instructions: value})
+              }}
+            />
           </div>
-          <IconButton onTouchTap={()=> {
-            let newCounter = quantity > 20 ? quantity : quantity + 1
-            this.setState({quantity: newCounter})
-          }}>
-            <ContentAdd />
-          </IconButton>
-        </div>
-        <TextField
-          hintText={
-            'No pepporoni? Dressing on the side?\
-             Let us know here. Note: any price alterations due to special requests \
-             will be charged after your order is processed.'
-           }
-          floatingLabelText={'Add Special Instructions Here!'}
-          rows={4}
-          rowsMax={5}
-          fullWidth
-          value={this.state.instructions}
-          onChange={(event, value)=> {
-            this.setState({instructions: value})
-          }}
-        />
+        }
       </Dialog>
     )
   }

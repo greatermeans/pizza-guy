@@ -5,7 +5,7 @@ import { Divider, RaisedButton, } from 'material-ui'
 import Formsy from 'formsy-react'
 import { FormsyCheckbox, FormsyRadio, FormsyRadioGroup, FormsyText } from 'formsy-material-ui/lib'
 
-class NewAddressForm extends Component {
+class PaymentForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,27 +25,32 @@ class NewAddressForm extends Component {
     })
   }
 
+  submitForm(data) {
+    debugger
+    console.log(JSON.stringify(data, null, 4))
+  }
+
   notifyFormError(data) {
     console.error('Form error:', data)
   }
 
+
   render() {
-    const { street, city, postal, } = this.props.address
     return (
       <div className={ 'newAddress' }>
         <div className={ 'newAddressHeader' }>
-          <h2 style={{marginRight: 15}}>Oh look, a new address!</h2>
-          <h4 style={{marginTop: 8}}>Lets make sure everything is correct.</h4>
+          <h2 style={{marginRight: 15}}>Almost There!</h2>
+          <h4 style={{marginTop: 8}}>Enter your payment info to complete your order.</h4>
         </div>
         <br />
         <Divider />
         <div className={ 'section-title-cont' }>
-          <div className={ 'sectionTitle' }>Contact</div>
+          <div className={ 'sectionTitle' }>Delivery Details</div>
         </div>
         <Formsy.Form
           onValid={this.enableButton.bind(this)}
           onInvalid={this.disableButton.bind(this)}
-          onValidSubmit={this.props.submitNewAddressForm.bind(this)}
+          onValidSubmit={this.submitForm.bind(this)}
           onInvalidSubmit={this.notifyFormError.bind(this)}
         >
           <div className={ 'flexDisplay' }>
@@ -96,7 +101,6 @@ class NewAddressForm extends Component {
               validations={{ isInt: true, isLength: 10 }}
               validationErrors={{isInt: errorMessages.numericError, isLength: errorMessages.phone}}
               required
-              type={'tel'}
               hintText={'Phone Number'}
               floatingLabelText={'What is your phone number?'}
               style={styles.textField}
@@ -113,7 +117,6 @@ class NewAddressForm extends Component {
               name={'address.street'}
               className={ 'textField' }
               required
-              value={street || ''}
               hintText={'Street Address'}
               floatingLabelText={'What is your street address?'}
               style={styles.textField}
@@ -135,7 +138,8 @@ class NewAddressForm extends Component {
           <div className={ 'flexDisplay' }>
             <FormsyText
               name={'address.city'}
-              value={city || ''}
+              validations={ 'isWords' }
+              validationError={errorMessages.wordsError}
               className={ 'textField' }
               required
               hintText={'City'}
@@ -147,8 +151,9 @@ class NewAddressForm extends Component {
             />
             <FormsyText
               name={'address.postal'}
-              value={postal || ''}
               className={ 'textField' }
+              validations={{ isInt: true, isLength: 5 }}
+              validationErrors={{isInt: errorMessages.numericError, isLength: errorMessages.postal}}
               required
               hintText={'Postal Code'}
               floatingLabelText={'What\'s your post code?'}
@@ -159,7 +164,7 @@ class NewAddressForm extends Component {
             />
           </div>
           <FormsyText
-            name={'address.instructions'}
+            name={'instructions'}
             hintText={
               'e.g. check with doorman or call on arrival.'
             }
@@ -172,7 +177,7 @@ class NewAddressForm extends Component {
           <br />
           <div className={ 'flexDisplay' }>
             <FormsyCheckbox
-              name={'address.save'}
+              name={'save'}
               label={'Save Address'}
               style={styles.checkStyle}
               defaultChecked
@@ -249,14 +254,12 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    address: state.user.address
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    submitNewAddressForm: (data) => dispatch(actions.submitNewAddressForm(data)),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewAddressForm)
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentForm)

@@ -4,10 +4,19 @@ import initialState from '../store/initialState'
 export default function (currentState, action) {
 
   switch (action.type) {
-    case A.CHECK_DELIVERY_ZONE:
+    case A.NEW_ADDRESS:
       return {
         ...currentState,
-        deliverable: action.deliverable
+        address: {
+          ...action.address
+        }
+      }
+    case A.COMPLETE_NEW_USER:
+      return {
+        ...currentState,
+        address: {
+          ...action.address
+        }
       }
     default:
       return currentState || initialState.user

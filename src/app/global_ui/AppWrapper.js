@@ -132,7 +132,7 @@ const styles = {
 
 const mapStateToProps = (state) => {
   return {
-    deliverable: state.user.deliverable,
+    deliverable: state.user.address.deliverable,
     dialog: state.dialog,
     snackbar: state.snackbar
   }

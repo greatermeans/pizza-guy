@@ -44,12 +44,12 @@ body {
   -webkit-transition: opacity .3s ease-out;
   transition: opacity .3s ease-out;
   opacity: 1;
-  height: 87vh;
+  height: 86vh;
   width: 100vw;
   display: flex;
   overflow: hidden;
-  padding-top: 30px;
-  padding-left: 30px;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
 a {
@@ -500,6 +500,8 @@ h1 {
    background-color: white;
    text-align: left;
    padding: 25px;
+   box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+   border-radius: 2px;
  }
 
  .newAddressHeader {
