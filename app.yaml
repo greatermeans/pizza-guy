@@ -1,0 +1,32 @@
+# appengine-nodejs-quickstart
+# See https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
+runtime: custom
+vm: true
+service: managerview
+  #this used to be called 'module'
+health_check:
+  enable_health_check: False
+  check_interval_sec: 5
+  timeout_sec: 4
+  unhealthy_threshold: 2
+  healthy_threshold: 2
+  restart_threshold: 60
+resources:
+  cpu: .5
+  memory_gb: 1.3
+  disk_size_gb: 10
+# Use manual scaling with a static number of instances
+# See documentation here: https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml#manual-scaling
+manual_scaling:
+  instances: 1
+# Use automatic_scaling to scale based on Target CPU utilization
+# See documentation here: https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml#auto-scaling
+#automatic_scaling:
+#  min_num_instances: 1
+#  max_num_instances: 1 # 20 = default value
+#  cool_down_period_sec: 60 # 120 = default value -- The time interval between auto scaling checks.
+#  cpu_utilization:
+#    target_utilization: 0.5  # 0.5 = default value -- Target CPU utilization (default 0.5). CPU use is averaged across all running instances and is used to decide when to reduce or increase the number of instances.
+env_variables:
+  FIREBASE_PROJECT_ID: 'pwc-fso-sandbox-philosophie'
+  BACKEND_SERVICE_BASE_URL: 'https://backend-dot-pwc-sales-demos.appspot.com/'

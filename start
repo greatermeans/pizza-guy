@@ -1,0 +1,3 @@
+cp -f ./.eslintrc ./.eslintrc-default-backup
+cp -f ./.eslintrc-errors ./.eslintrc
+npm start

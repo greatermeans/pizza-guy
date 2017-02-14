@@ -1,0 +1,40 @@
+echo 'Firebase+React Pipeline:  Checks out the project source-code and builds the nodejs app.'
+
+
+stage 'Build Firebase+React source:'
+
+node {
+    
+    withEnv(["BID=${env.BUILD_ID}", "BNAME=${BUCKET_ID}"]) {
+        
+        // the credentialsId is the ID of the Jenkins Credential we configured using Github deployment keys
+        git url: 'git@pwc-fso-larson-web-client:business-os/pwc-fso-larson-web-client.git'
+        
+        sh 'npm set progress=false && npm install'
+        sh 'npm run build'
+        stash excludes: '**/node_modules/**', name: 'build-artifact'
+    }
+}
+
+stage 'Unit-test Firebase+React application:'
+node {
+    
+    unstash 'build-artifact'
+    sh 'npm run test'
+    
+    stash excludes: '**/node_modules/**', name: 'build-artifact'
+}
+
+
+stage 'Archive Firebase+React build-artifact:'
+node {
+    
+    withEnv(["BID=${env.BUILD_ID}", "BNAME=${BUCKET_ID}", "GS_DESTINATION=${BUCKET_ID}/${BUCKET_FOLDER}"]) {
+   
+        unstash 'build-artifact'
+    
+        sh 'tar -cvf ../$BNAME-$BID.tar --exclude="node_modules" .'
+        sh 'export PATH=$PATH:/usr/local/bin && gsutil cp ../$BNAME-$BID.tar gs://$GS_DESTINATION'
+    }
+}
+

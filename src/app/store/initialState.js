@@ -1,28 +1,18 @@
 export default {
-  cart: [],
-  courses: {},
-  menuItems: {},
-  restaurant: {},
-  user: {
-    firstName: null,
-    lastName: null,
-    phone: null,
-    email: null,
-    address: {
-      deliverable: null,
-      street: null,
-      secondary: null,
-      city: null,
-      country: 'SWEDEN',
-      postal: null,
-      type: null,
-      save: null,
-      instructions: null,
-    }
+  appBar: {},
+  auth: {
+    currently: 'anonymous',
+    username: null,
+    uid: null,
   },
+  cacheIndex: {},
   dialog: {
     open: false,
   },
-  snackbar: {},
-  types: {},
+  snackbar: {
+    open: false,
+  },
+  UI: {
+    activeTab: 0,
+  }
 }

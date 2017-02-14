@@ -1,22 +1,18 @@
-import cartActions from './cart'
-import restaurantActions from './restaurant'
-import menuItemsActions from './menuItems'
-import coursesActions from './courses'
-import userActions from './user'
-import globalActions from './global'
-import routeParamsActions from './routeParams'
-import snackbarActions from './snackbar'
+import authActions from './auth'
 import dialogActions from './dialog'
+import itemsActions from './items'
+import routeParamsActions from './routeParams'
+import routingActions from './routing'
+import snackbarActions from './snackbar'
+import UIActions from './UI'
 
 export default Object.assign(
   {},
-  cartActions,
-  coursesActions,
+  authActions,
   dialogActions,
-  globalActions,
-  menuItemsActions,
-  restaurantActions,
+  itemsActions,
   routeParamsActions,
+  routingActions,
   snackbarActions,
-  userActions
+  UIActions,
 )

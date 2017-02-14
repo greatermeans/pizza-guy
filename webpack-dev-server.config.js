@@ -27,7 +27,7 @@ const config = {
     devtool: 'eval',
     hot: true, // Live-reload
     inline: true,
-    port: 3001, // Port Number
+    port: process.env.PORT || 3000, // Port Number
     host: 'localhost', // Change to '0.0.0.0' for external facing server,
     // Set this as true if you want to access dev server from arbitrary url.
     // This is handy if you are using a html5 router.
@@ -42,8 +42,11 @@ const config = {
     // CICD support for dynamically setting process variables to represent the environment config
     new webpack.DefinePlugin({
       'process.env' : JSON.stringify({
+        BACKEND_SERVICE_BASE_URL: process.env.BACKEND_SERVICE_BASE_URL,
+        PROJECT_ID: process.env.PROJECT_ID,
+        PROJECT_ID_FOR_BUCKET: process.env.PROJECT_ID_FOR_BUCKET,
         API_KEY: process.env.API_KEY,
-        GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
+        GOOGLE_SCOPES: process.env.GOOGLE_SCOPES,
       })
     }),
     // Enables Hot Modules Replacement
@@ -67,12 +70,12 @@ const config = {
       {
         // React-hot loader and
         test: /\.js$/, // All .js files
-        loaders: ['babel-loader'], //  is like browser sync and babel loads jsx and es6-7
+        loaders: ['react-hot', 'babel-loader'],
         exclude: [nodeModulesPath],
       },
       {
-        test: /\.jpg$/,
-        loader: 'file'
+        test: /\.(png|jpg)$/,
+        loaders: ['url-loader']
       },
       {
         test: /\.css$/,

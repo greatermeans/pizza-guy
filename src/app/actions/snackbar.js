@@ -3,7 +3,7 @@ import A from '../const/actionTypes'
 export default {
   showSnackbar: (snackbar) => {
     return (dispatch, getState) => {
-      snackbar.open = true
+      snackbar.active = true
       dispatch({
         type: A.SHOW_SNACKBAR,
         snackbar,

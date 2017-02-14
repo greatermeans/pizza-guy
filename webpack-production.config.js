@@ -27,8 +27,11 @@ const config = {
     // CICD support for dynamically setting process variables to represent the environment config
     new webpack.DefinePlugin({
       'process.env' : JSON.stringify({
+        BACKEND_SERVICE_BASE_URL: process.env.BACKEND_SERVICE_BASE_URL,
+        PROJECT_ID: process.env.PROJECT_ID,
+        PROJECT_ID_FOR_BUCKET: process.env.PROJECT_ID_FOR_BUCKET,
         API_KEY: process.env.API_KEY,
-        GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
+        GOOGLE_SCOPES: process.env.GOOGLE_SCOPES,
       })
     }),
 
@@ -54,8 +57,12 @@ const config = {
         exclude: [nodeModulesPath],
       },
       {
-        test: /\.jpg$/,
-        loader: 'file'
+        test: /\.(png|jpg)$/,
+        loaders: ['url-loader']
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
       },
     ],
   },

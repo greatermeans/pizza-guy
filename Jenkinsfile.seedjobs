@@ -1,0 +1,134 @@
+def repourl = "$GIT_URL"
+def reponame = repourl.substring(repourl.lastIndexOf("/") + 1, repourl.length())
+def org = repourl.substring(0, repourl.indexOf("/") - 1)
+
+println "${repourl}"
+println "${org}"
+
+job("${reponame}-react-build") {
+
+  description 'This job builds the Firebase+React project.'
+
+  scm {
+    git {
+      remote {
+
+        github("business-os/${reponame}", 'ssh', "${reponame}")
+      }
+    }
+  }
+
+  steps {
+
+    shell 'npm set progress=false && npm install && npm run build'
+  }
+}
+
+job("${reponame}-react-unit-test") {
+  
+  description 'This job runs the unit-tests for the Firebase UI.'
+  
+  scm {
+    git {
+      remote {
+        
+        github("business-os/${reponame}", 'ssh', "${reponame}")  	
+      }
+    }
+  }
+  
+  steps {
+    
+    shell 'npm set progress=false && npm install && npm run test'
+  }
+}
+
+job("${reponame}-react-archive") {
+  
+  description 'Archive the build artifact for this project in GCP Storage Bucket.'
+  
+  scm {
+    git {
+      remote {
+        
+        github("business-os/${reponame}", 'ssh', "${reponame}")  	
+      }
+    }
+  }  
+  
+  parameters {
+    
+    choiceParam('BUCKET_ID', ['larson-sdc-automation'])
+    choiceParam('BUCKET_FOLDER', ['artifacts'])
+  }
+  
+  steps {
+    
+    shell 'export PATH=$PATH:/usr/local/bin && \
+		BUCKET_NAME="${BUCKET_ID}/${BUCKET_FOLDER}" && \
+		ARCHIVE_NAME="${BUCKET_ID}-${BUILD_ID}.tar" && \
+		GS_DESTINATION="gs://${BUCKET_NAME}" && \
+		npm set progress=false && \
+    	npm install && \
+    	npm run build && \
+		tar -cvf ${ARCHIVE_NAME} --exclude="node_modules" . && \
+		gsutil cp ${ARCHIVE_NAME} ${GS_DESTINATION} && \
+		RETVAL=$? && \
+		[ $RETVAL -eq 0 ] && rm -f ${ARCHIVE_NAME}'
+  }
+}
+
+job("${reponame}-react-deploy-build-by-id"){
+  
+  description 'Pull down the build artifact from GCP Storage Bucket and deploy the build to Firebase.'
+  
+  parameters {
+    
+    choiceParam('BUCKET_ID', ['larson-sdc-automation'])
+    choiceParam('BUCKET_FOLDER', ['artifacts'])
+    stringParam('ARTIFACT_ID', '1', 'The build number to be deployed.')
+    stringParam('DEPLOY_TOKEN', '1/9L8wzoKEWmpW1B1lSUGbLbsPPWPm9aoz5HtcLyx7rvg', 'The Firebase CI Token for deploying builds to Firebase.')
+	stringParam('FIREBASE_PROJECT', '', 'The ID of your Firebase project to deploy to.')
+  }
+  
+  steps {
+   
+    shell 'export PATH=$PATH:/usr/local/bin &&\
+		BUCKET_NAME="${BUCKET_ID}/${BUCKET_FOLDER}" && \
+		ARTIFACT_NAME="${BUCKET_ID}-${ARTIFACT_ID}.tar" && \
+		gsutil cp gs://${BUCKET_NAME}/${ARTIFACT_NAME} . && \
+		[ $? -eq 0 ] && tar -xvf ${ARTIFACT_NAME} && \
+		firebase deploy --token "$DEPLOY_TOKEN" --project "$FIREBASE_PROJECT"'
+  }
+  
+}
+
+pipelineJob("${reponame}-react-pipeline") {
+
+  parameters {
+
+    choiceParam('BUCKET_ID', ['larson-sdc-automation'])
+    choiceParam('BUCKET_FOLDER', ['artifacts'])
+  }
+  
+  definition {
+    cpsScm {
+      scm {
+        git {
+          remote {
+            github("business-os/${reponame}", 'ssh', "${reponame}")
+            
+          }
+          
+        }
+        
+      }
+      
+      scriptPath('Jenkinsfile.pipeline')
+      
+    }
+    
+  }
+  
+}
+

@@ -1,26 +1,22 @@
-import { combineReducers } from 'redux'
+import { combineReducers, } from 'redux'
 import { routerReducer, } from 'react-router-redux'
-import { reducer as formReducer } from 'redux-form'
-import cartReducer from './cart'
-import restaurantReducer from './restaurant'
-import coursesReducer from './courses'
+import appBarReducer from './appBar'
+import authReducer from './auth'
+import cacheIndexReducer from './cacheIndex'
 import dialogReducer from './dialog'
-import menuItemsReducer from './menuItems'
+import routeParamsReducer from './routeParams'
 import snackbarReducer from './snackbar'
-import typesReducer from './types'
-import userReducer from './user'
+import UIReducer from './UI'
 
 const rootReducer = combineReducers({
-  cart: cartReducer,
-  courses: coursesReducer,
+  appBar: appBarReducer,
+  auth: authReducer,
+  cacheIndex: cacheIndexReducer,
   dialog: dialogReducer,
-  form: formReducer,
-  menuItems: menuItemsReducer,
-  restaurant: restaurantReducer,
   routing: routerReducer,
+  routeParams: routeParamsReducer,
   snackbar: snackbarReducer,
-  types: typesReducer,
-  user: userReducer,
+  UI: UIReducer,
 })
 
 export default rootReducer
