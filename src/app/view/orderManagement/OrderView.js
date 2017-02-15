@@ -2,17 +2,20 @@ import React, { Component, } from 'react'
 import { connect, } from 'react-redux'
 import actions from '../../actions'
 import { Button, } from 'react-mdl'
+import { CircularProgress } from 'material-ui'
 
 class OrderView extends Component {
 
   render() {
     return (
       <div>
-        <Button onClick={this.props.sendMenuToDB}>Generate</Button>
+        hello
       </div>
     )
   }
 }
+
+const styles = {}
 
 const mapStateToProps = (state) => {
   return {
@@ -22,7 +25,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    sendMenuToDB: () => dispatch(actions.sendMenuToDB())
   }
 }
 

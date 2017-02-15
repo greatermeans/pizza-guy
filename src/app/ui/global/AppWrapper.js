@@ -3,31 +3,10 @@ import { connect, } from 'react-redux'
 import { Layout, Header, Button, Snackbar, } from 'react-mdl'
 import { Dialog, } from 'material-ui'
 import actions from '../../actions'
-import AppNavMenu from './AppNavMenu'
 import { fontFamily, palette } from '../../theme/Theme.js'
 import Body from '../../ui/typography/Body'
 
 class AppWrapper extends Component {
-  constructor() {
-    super()
-
-    this.onNavigateTo = this.onNavigateTo.bind(this)
-  }
-
-  onNavigateTo(event, value) {
-    switch (value) {
-      case 'employees':
-        this.props.routeToEmployees()
-        break
-      case 'teams':
-        this.props.routeToTeams()
-        break
-      default:
-        this.props.routeTo(value)
-        break
-    }
-  }
-
   render() {
     const {
       appBar, children, dialog, hideDialog, location, snackbar, routeParams,
@@ -42,11 +21,6 @@ class AppWrapper extends Component {
             />
           ) : null
         }
-        <AppNavMenu
-          location={location}
-          onRequestChangeNavMenu={(value) => {}}
-          onNavigateTo={this.onNavigateTo}
-        />
         <Snackbar
           active={snackbar.active || false}
           action={snackbar.action || ' '}

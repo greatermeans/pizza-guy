@@ -2,13 +2,13 @@ import A from '../const/actionTypes'
 import firebaseService from '../infrastructure/FirebaseService'
 
 export default {
-  getItems: () => {
+  getCategories: () => {
     return (dispatch, getState) => {
-      firebaseService.subscribe('items', (result) => {
-        const items = result.val() || {}
+      firebaseService.subscribe('categories', (result) => {
+        const categories = result.val() || {}
         dispatch({
-          type: A.SET_ITEMS,
-          items
+          type: A.SET_CATEGORIES,
+          categories
         })
       })
     }

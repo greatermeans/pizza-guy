@@ -34,6 +34,24 @@ class FirebaseService {
     return this.database.ref(namespace + path).remove()
   }
 
+  subscribe(
+    path,
+    handler,
+    namespace = DEFAULT_NAMESPACE
+  ) {
+    return this.database.ref(namespace + path).orderByKey().on('value', handler)
+  }
+
+  subscribeByValue(
+    path,
+    handler,
+    field,
+    value,
+    namespace = DEFAULT_NAMESPACE
+  ) {
+    return this.database.ref(namespace + path).orderByChild(field).equalTo(value).on('value', handler)
+  }
+
   update(
     path,
     newState,
