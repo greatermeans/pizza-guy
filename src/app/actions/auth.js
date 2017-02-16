@@ -12,6 +12,7 @@ const onAuthData = (authData, dispatch, getState) => {
       uid: authData.uid,
       username: authData.displayName, // authData.github.displayName || authData.github.username
       email: authData.email,
+      photoURL: authData.photoURL,
     })
     const token = getState().auth.token
     if (token) {

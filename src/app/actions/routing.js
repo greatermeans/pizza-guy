@@ -6,8 +6,8 @@ import actions from '.'
 export default {
   routeAuthenticatedUser: () => {
     return (dispatch, getState) => {
-      dispatch(actions.getItems())
       dispatch(actions.getCategories())
+      dispatch(actions.getItems())
       dispatch(actions.routeTo('order'))
     }
   },

@@ -34,6 +34,7 @@ export default (currentState, action) => {
       updatedState.username = action.username
       updatedState.uid = action.uid
       updatedState.email = action.email
+      updatedState.photoURL = action.photoURL
       break
   }
 

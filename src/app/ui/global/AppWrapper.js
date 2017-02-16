@@ -1,7 +1,7 @@
 import React, { Component, } from 'react'
 import { connect, } from 'react-redux'
 import { Layout, Header, Button, Snackbar, } from 'react-mdl'
-import { Dialog, } from 'material-ui'
+import { Avatar, Dialog, } from 'material-ui'
 import actions from '../../actions'
 import { fontFamily, palette } from '../../theme/Theme.js'
 import Body from '../../ui/typography/Body'
@@ -9,18 +9,27 @@ import Body from '../../ui/typography/Body'
 class AppWrapper extends Component {
   render() {
     const {
-      appBar, children, dialog, hideDialog, location, snackbar, routeParams,
+      auth, children, dialog, hideDialog, snackbar, routeParams,
     } = this.props
 
     return (
       <Layout style={styles.mainContainer}>
-        {
-          routeParams.route !== '' ? (
-            <Header
-              title={appBar.title}
-            />
-          ) : null
-        }
+      {
+        routeParams.route !== '' ? (
+          <Header
+            title={'Convenience'}
+          >
+            {
+              auth.uid ? (
+                <div style={styles.userInfo}>
+                  <div style={styles.userName}>{ auth.username }</div>
+                  <Avatar src={auth.photoURL}/>
+                </div>
+              ) : null
+            }
+          </Header>
+        ) : null
+      }
         <Snackbar
           active={snackbar.active || false}
           action={snackbar.action || ' '}
@@ -62,20 +71,23 @@ class AppWrapper extends Component {
 }
 
 const styles = {
-  children: {
-    marginLeft: '16%',
-    marginTop: '3%',
-    marginRight: '1%'
-  },
   mainContainer: {
     backgroundColor: palette.gray50,
     fontFamily: fontFamily,
+  },
+  userInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    lineHeight: '40px',
+  },
+  userName: {
+    marginRight: 20,
   },
 }
 
 const mapStateToProps = (state) => {
   return {
-    appBar: state.appBar,
+    auth: state.auth,
     dialog: state.dialog,
     routeParams: state.routeParams,
     snackbar: state.snackbar,
