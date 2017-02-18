@@ -3,7 +3,7 @@ import { connect, } from 'react-redux'
 import { Layout, Header, Button, Snackbar, } from 'react-mdl'
 import { Avatar, Dialog, } from 'material-ui'
 import actions from '../../actions'
-import { fontFamily, palette } from '../../theme/Theme.js'
+import { fontFamily, } from '../../theme/Theme.js'
 import Body from '../../ui/typography/Body'
 
 class AppWrapper extends Component {
@@ -56,6 +56,7 @@ class AppWrapper extends Component {
           ]}
           onRequestClose={() => {}}
           open={dialog.open}
+          subtitle={dialog.subtitle}
           title={dialog.title}
         >
           <Body noLeadMargin>
@@ -71,8 +72,10 @@ class AppWrapper extends Component {
 }
 
 const styles = {
+  children: {
+    marginTop: 20,
+  },
   mainContainer: {
-    backgroundColor: palette.gray50,
     fontFamily: fontFamily,
   },
   userInfo: {

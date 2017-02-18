@@ -1,10 +1,16 @@
 import React from 'react'
+import AddItemToCartForm from './AddItemToCartForm'
 import { Card, CardHeader, CardText, } from 'material-ui'
 import injectSheet from 'react-jss'
 import ItemCard from './ItemCard'
 
-const CategoryCard = ({ categoryDescription, categoryId, categoryName, classes, items, }) => (
-  <Card key={categoryId} style={styles.cardContainer}>
+const CategoryCard = (
+  {
+    categoryDescription, categoryId, categoryName, classes,
+    items, setSelectedItem, showAddItemToCartDialog,
+  }
+) => (
+  <Card initiallyExpanded key={categoryId} style={styles.cardContainer}>
     <CardHeader
       actAsExpander
       title={categoryName}
@@ -13,11 +19,18 @@ const CategoryCard = ({ categoryDescription, categoryId, categoryName, classes, 
       subtitle={categoryDescription}
     />
     <CardText expandable>
-      <div style={styles.categoryInnerContainer}>
+      <div style={styles.categoryInnerContainer} >
         {
           items.map(item => (
-            <div className={classes.itemOutterContainer}>
-              <ItemCard key={item.itemId} {...item}/>
+            <div
+              key={item.itemId}
+              className={classes.itemOutterContainer}
+              onClick={() => {
+                setSelectedItem(item)
+                showAddItemToCartDialog(<AddItemToCartForm/>)
+              }}
+            >
+              <ItemCard {...item}/>
             </div>
           ))
         }

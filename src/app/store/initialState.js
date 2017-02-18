@@ -6,8 +6,16 @@ export default {
     uid: null,
   },
   cacheIndex: {},
+  cart: {
+    cartTotal: 0,
+    taxRate: 0.05,
+    cartItems: [],
+  },
   dialog: {
     open: false,
+  },
+  itemManagement: {
+    quantity: 1,
   },
   snackbar: {
     open: false,
