@@ -9,7 +9,7 @@ import _ from 'lodash'
 class AddItemToCartForm extends Component {
   render() {
     const { quantity, instructions, itemType, selectedItem } = this.props.itemManagement
-    const { itemDescription, itemId, types, } = selectedItem
+    const { itemDescription, types, } = selectedItem
 
     return (
       <div>

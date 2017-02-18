@@ -6,9 +6,13 @@ import actions from '.'
 export default {
   routeAuthenticatedUser: () => {
     return (dispatch, getState) => {
+      const { route, } = getState().routeParams
       dispatch(actions.getCategories())
       dispatch(actions.getItems())
-      dispatch(actions.routeTo('order'))
+      dispatch(actions.getCartItems())
+      if (route !== 'order') {
+        dispatch(actions.routeTo('order'))
+      }
     }
   },
 }

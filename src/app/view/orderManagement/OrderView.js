@@ -32,7 +32,8 @@ class OrderView extends Component {
 
 const styles = {
   categorizedItems: {
-    flex: 4
+    flex: 4,
+    overflowY: 'auto',
   },
   orderviewContainer: {
     display: 'flex',

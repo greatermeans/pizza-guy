@@ -73,10 +73,13 @@ class AppWrapper extends Component {
 
 const styles = {
   children: {
+    display: 'flex',
+    flexWrap: 'wrap',
     marginTop: 20,
   },
   mainContainer: {
     fontFamily: fontFamily,
+    display: 'flex',
   },
   userInfo: {
     display: 'flex',

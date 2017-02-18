@@ -7,14 +7,14 @@ export default function (currentState, action) {
       updatedState.cartItems.push(action.item)
       updatedState.cartTotal += action.item.itemCost
       break
-    case A.CLEAR_CART:
-      updatedState.cartItems = []
-      break
     case A.REMOVE_ITEM:
       updatedState.cartItems.splice(action.itemIndex, 1)
       break
-    case A.UPDATE_ITEM:
-      updatedState.cartItems[action.updatedItemIndex] = action.item
+    case A.SET_CART_ITEMS:
+      updatedState.cartItems = action.cartItems
+      break
+    case A.UPDATE_ITEM_IN_CART:
+      //how to deal with someone changing the size??
       break
   }
   return updatedState

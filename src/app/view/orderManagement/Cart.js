@@ -2,6 +2,7 @@ import React, { Component, } from 'react'
 import { connect, } from 'react-redux'
 import { Divider, FlatButton, RaisedButton, } from 'material-ui'
 import actions from '../../actions'
+import AddItemToCartForm from './AddItemToCartForm'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import emptyCart from '../../images/emptyCart.png'
@@ -28,19 +29,24 @@ class Cart extends Component {
         <div style={styles.cartBody}>
           <div style={styles.cartItems}>
           {
-            !cartItems.length ?
+            !Object.keys(cartItems).length ?
             <img style={styles.emptyCartImage} src={ emptyCart }/> :
-            cartItems.map(item => {
-              let { itemCost, itemId, itemName, itemType, quantity, } = item
+            Object.keys(cartItems).map(cartItemId => {
+              let { itemCost, itemId, itemName, itemType, quantity, } = cartItems[cartItemId]
               return (
                 <div style={styles.itemContainer} key={itemId + ':' + itemType}>
                   <ContentRemoveCircle
                     style={styles.itemRemove}
-                    onClick={() => {this.handleItemRemoval(itemId, itemType)}}
+                    onClick={() => this.props.showRemoveItemDialog(cartItemId)}
                   />
                   <span style={styles.itemQuantity}>{quantity}</span>
                   <div style={styles.itemNameContainer}>
-                    <span style={styles.itemName} onClick={() => {this.handleEditItem(item)}}>
+                    <span
+                      style={styles.itemName}
+                      onClick={
+                        () => this.props.showEditItemInCartDialog(cartItemId, <AddItemToCartForm/>)
+                      }
+                    >
                       {itemName}<EditorModeEdit style={styles.editItemButton}/>
                     </span>
                     <ul style={styles.itemDescription}>
@@ -55,9 +61,7 @@ class Cart extends Component {
             })
           }
           </div>
-        </div>
-        <Divider style={styles.divider} />
-        <div style={styles.cartFooter}>
+          <Divider style={styles.divider} />
           <div style={styles.totalsLines}>
             <div style={styles.totalLineName}>Items Subtotal:</div>
             <div style={styles.totalLineAmount}>{cartTotal}</div>
@@ -74,9 +78,11 @@ class Cart extends Component {
             style={styles.clearCartButton}
             label={'Clear Cart'}
             hoverColor={'white'}
-            onClick={() => {}}
+            onClick={this.props.showEmptyCartDialog}
           />
-          <Divider style={styles.divider} />
+        </div>
+        <Divider style={styles.divider} />
+        <div style={styles.cartFooter}>
           <RaisedButton
             label={'Proceed to Checkout: ' + (cartTotal * (1 + taxRate))}
             onClick={() => {}} //needs to change
@@ -100,23 +106,26 @@ const styles = {
     flexDirection: 'column',
   },
   cartBody: {
-    maxHeight: 380,
     overflowY: 'auto',
   },
   cartContainer: {
-    backgroundColor: '#fff',
+    display: 'flex',
     flex: 1.5,
+    flexDirection: 'column',
     fontSize: 14,
     maxWidth: 350,
   },
   cartFooter: {
+    alignItems: 'center',
     bottom: 0,
+    display: 'flex',
     flex: '0 0 auto',
+    margin: 10,
     WebkitBoxFlex: 0,
-    width: '100%',
     zIndex: 10,
   },
   cartItems: {
+    alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
@@ -127,13 +136,20 @@ const styles = {
   },
   cartTitle: {
     height: 30,
-    margin: 10
+    margin: 5
+  },
+  cartTotals: {
+    bottom: 0,
+    flex: '0 0 auto',
+    WebkitBoxFlex: 0,
+    width: '100%',
   },
   changeButton: {
     flex: 1,
   },
   checkoutButton: {
-    display: 'block'
+    display: 'block',
+    flex: 1,
   },
   clearCartButton: {
     color: 'blue',
@@ -149,11 +165,11 @@ const styles = {
     width: 18,
   },
   emptyCartImage: {
-    maxWidth: 350,
+    maxWidth: 320,
   },
   itemContainer: {
     display: 'flex',
-    flex: 1,
+    width: 'inherit',
   },
   itemDescription: {
     display: 'block',
@@ -176,27 +192,26 @@ const styles = {
     transition: 'color .2s ease',
   },
   itemNameContainer: {
-    flex: 1,
-    minWidth: 180,
+    flex: 3,
     padding: '10px 10px',
     textAlign: 'left',
   },
   itemPrice: {
     color: '#777',
-    flex: '0 0 30px',
+    flex: 1,
     padding: '15px 20px 15px 10px',
     textAlign: 'right',
     WebkitBoxFlex: 0,
     whiteSpace: 'nowrap',
   },
   itemQuantity: {
-    flex: '0 0 20px',
+    flex: 1,
     padding: '15px 0 0',
     textAlign: 'center',
   },
   itemRemove: {
     cursor: 'pointer',
-    flex: '0 0 40px',
+    flex: 1,
     height: 20,
     marginBottom: 12,
     marginLeft: 12,
@@ -231,8 +246,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showDialog: (dialog) => dispatch(actions.showDialog(dialog)),
-    showEditItemInCartDialog: (itemId, form) => dispatch(actions.showEditItemInCartDialog(itemId, form)),
+    showEditItemInCartDialog: (cartItemId, form) => dispatch(actions.showEditItemInCartDialog(cartItemId, form)),
+    showEmptyCartDialog: () => dispatch(actions.showEmptyCartDialog()),
+    showRemoveItemDialog: (cartItemId) => dispatch(actions.showRemoveItemDialog(cartItemId)),
   }
 }
 
