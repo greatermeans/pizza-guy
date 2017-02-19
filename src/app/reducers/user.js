@@ -4,8 +4,8 @@ export default (currentState, action) => {
   let updatedState = { ...currentState }
 
   switch (action.type) {
-    case A.SET_CATEGORIES:
-      updatedState = action.categories
+    case A.SET_USER_ADDRESSES:
+      updatedState.addresses = action.addresses
       break
   }
 

@@ -165,9 +165,11 @@ export default {
         cartItems[cartItemId].itemType === itemType &&
         cartItems[cartItemId].itemId === selectedItem.itemId
       ))
-      let areItemTypesDifferent = existingItemId && cartItems[existingItemId].itemType !==
+      let itemTypesAreDifferent = existingItemId &&
+        cartItems[existingItemId].itemType !==
         cartItems[cartItemId].itemType
-      if (areItemTypesDifferent) {
+
+      if (itemTypesAreDifferent) {
         dispatch(actions.incrementItem(existingItemId))
         dispatch(actions.removeItem(cartItemId))
       } else {

@@ -2,7 +2,7 @@ import A from '../const/actionTypes'
 import P from '../const/paramTypes'
 
 export default (currentState, action) => {
-  let updatedState = Object.assign({}, currentState)
+  let updatedState = { ...currentState }
 
   switch (action.type) {
     case A.LOCATION_CHANGE:

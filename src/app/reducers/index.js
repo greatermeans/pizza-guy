@@ -11,6 +11,8 @@ import itemsReducer from './items'
 import routeParamsReducer from './routeParams'
 import snackbarReducer from './snackbar'
 import UIReducer from './UI'
+import userReducer from './user'
+import userManagementReducer from './userManagement'
 
 const rootReducer = combineReducers({
   appBar: appBarReducer,
@@ -25,6 +27,8 @@ const rootReducer = combineReducers({
   routeParams: routeParamsReducer,
   snackbar: snackbarReducer,
   UI: UIReducer,
+  user: userReducer,
+  userManagement: userManagementReducer,
 })
 
 export default rootReducer

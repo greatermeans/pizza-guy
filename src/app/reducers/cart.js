@@ -1,7 +1,7 @@
 import A from '../const/actionTypes'
 
 export default function (currentState, action) {
-  let updatedState = {...currentState}
+  let updatedState = { ...currentState }
   switch (action.type) {
     case A.ADD_ITEM_TO_CART:
       updatedState.cartItems.push(action.item)

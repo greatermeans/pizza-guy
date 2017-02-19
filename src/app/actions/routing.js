@@ -7,6 +7,7 @@ export default {
   routeAuthenticatedUser: () => {
     return (dispatch, getState) => {
       const { route, } = getState().routeParams
+      dispatch(actions.getUserAddresses())
       dispatch(actions.getCategories())
       dispatch(actions.getItems())
       dispatch(actions.getCartItems())

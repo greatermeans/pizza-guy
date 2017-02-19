@@ -8,6 +8,8 @@ import routeParamsActions from './routeParams'
 import routingActions from './routing'
 import snackbarActions from './snackbar'
 import UIActions from './UI'
+import userActions from './user'
+import userManagementActions from './userManagement'
 
 export default Object.assign(
   {},
@@ -21,4 +23,6 @@ export default Object.assign(
   routingActions,
   snackbarActions,
   UIActions,
+  userActions,
+  userManagementActions,
 )

@@ -1,7 +1,7 @@
 import A from '../const/actionTypes'
 
 export default (currentState, action) => {
-  let updatedState = {...currentState}
+  let updatedState = { ...currentState }
 
   switch (action.type) {
     case A.SHOW_DIALOG:
