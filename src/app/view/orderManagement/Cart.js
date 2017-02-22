@@ -15,7 +15,7 @@ class Cart extends Component {
     const { addresses, } = this.props.user
     const defaultAddress = Object.keys(addresses).length &&
       addresses[Object.keys(addresses)[0]]
-    console.log(cartTotal)
+
     return (
       <div style={styles.cartContainer}>
         <div style={styles.cartTitle}>Your Cart</div>
