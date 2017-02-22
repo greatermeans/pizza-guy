@@ -4,8 +4,11 @@ import firebaseService from '../infrastructure/FirebaseService'
 export default {
   addNewAddress: () => {
     return (dispatch, getState) => {
+      const { city, state, streetAddress, zipcode } = getState().userManagement
       const auth = getState().auth
-      firebaseService.add(`addressBook/${auth.uid}`, null)
+      const fullAddress = [streetAddress, city, state, zipcode].join(', ')
+      const newAddress = {city, fullAddress, state, streetAddress, zipcode, }
+      firebaseService.add(`addressBook/${auth.uid}`, newAddress)
     }
   },
   getUserAddresses: () => {

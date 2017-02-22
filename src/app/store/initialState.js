@@ -22,5 +22,8 @@ export default {
   },
   UI: {
     activeTab: 0,
-  }
+  },
+  user: {
+    addresses: {},
+  },
 }

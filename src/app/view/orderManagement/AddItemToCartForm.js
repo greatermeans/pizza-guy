@@ -15,24 +15,22 @@ class AddItemToCartForm extends Component {
       <div>
         <div>{itemDescription}</div>
         <div>{`$${types[itemType] * quantity}`}</div>
-        <div>
-          <RadioButtonGroup
-            name={'type'}
-            defaultSelected={itemType}
-            onChange={(event, value) => this.props.setItemType(value)}
-            style={styles.radioGroup}
-          >
-            {
-              Object.keys(types).map(typeName => (
-                <RadioButton
-                  key={typeName}
-                  value={typeName}
-                  label={_.capitalize(typeName)}
-                />
-              ))
-            }
-          </RadioButtonGroup>
-        </div>
+        <RadioButtonGroup
+          name={'type'}
+          defaultSelected={itemType}
+          onChange={(event, value) => this.props.setItemType(value)}
+          style={styles.radioGroup}
+        >
+          {
+            Object.keys(types).map(typeName => (
+              <RadioButton
+                key={typeName}
+                value={typeName}
+                label={_.capitalize(typeName)}
+              />
+            ))
+          }
+        </RadioButtonGroup>
         <div style={styles.quantityContainer}>
           <IconButton onTouchTap={()=> {
             let newCounter = quantity === 1 ? quantity : quantity - 1

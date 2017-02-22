@@ -12,9 +12,9 @@ export default function (currentState, action) {
       break
     case A.SET_CART_ITEMS:
       updatedState.cartItems = action.cartItems
-      break
-    case A.UPDATE_ITEM_IN_CART:
-      //how to deal with someone changing the size??
+      updatedState.cartTotal = Object.keys(action.cartItems).reduce(
+        (sum, itemId) => sum + action.cartItems[itemId].itemCost, 0
+      )
       break
   }
   return updatedState

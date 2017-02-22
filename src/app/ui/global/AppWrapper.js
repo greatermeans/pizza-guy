@@ -41,19 +41,28 @@ class AppWrapper extends Component {
         </Snackbar>
         <Dialog
           actions={[
-            <Button onClick={() => {
-              hideDialog()
-              if (dialog.acceptCallback) {
-                dialog.acceptCallback()
-              }
-            }}>{dialog.acceptCaption}</Button>,
-            <Button onClick={() => {
-              hideDialog()
-              if (dialog.rejectCallback) {
-                dialog.rejectCallback()
-              }
-            }}>{dialog.rejectCaption}</Button>
+            <Button
+              onClick={() => {
+                hideDialog()
+                if (dialog.acceptCallback) {
+                  dialog.acceptCallback()
+                }
+              }}
+            >
+              {dialog.acceptCaption}
+            </Button>,
+            <Button
+              onClick={() => {
+                hideDialog()
+                if (dialog.rejectCallback) {
+                  dialog.rejectCallback()
+                }
+              }}
+            >
+              {dialog.rejectCaption}
+            </Button>
           ]}
+          bodyStyle={styles.dialogContent}
           onRequestClose={() => {}}
           open={dialog.open}
           subtitle={dialog.subtitle}
@@ -76,6 +85,9 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     marginTop: 20,
+  },
+  dialogContent: {
+    overflow: 'scroll',
   },
   mainContainer: {
     fontFamily: fontFamily,

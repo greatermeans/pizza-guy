@@ -3,6 +3,7 @@ import { connect, } from 'react-redux'
 import { Divider, FlatButton, RaisedButton, } from 'material-ui'
 import actions from '../../actions'
 import AddItemToCartForm from './AddItemToCartForm'
+import ChangeAddressForm from './ChangeAddressForm'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import emptyCart from '../../images/emptyCart.png'
@@ -11,20 +12,37 @@ import _ from 'lodash'
 class Cart extends Component {
   render() {
     const { cartItems, cartTotal, taxRate, } = this.props.cart
+    const { addresses, } = this.props.user
+    const defaultAddress = Object.keys(addresses).length &&
+      addresses[Object.keys(addresses)[0]]
+    console.log(cartTotal)
     return (
       <div style={styles.cartContainer}>
         <div style={styles.cartTitle}>Your Cart</div>
         <Divider style={styles.divider} />
-        <div style={styles.addressAndTime}>
+        <div
+          style={styles.addressAndTime}
+          onClick={() => this.props.showChangeAddressDialog(
+            <ChangeAddressForm processAddressComponents={this.props.processAddressComponents}/>
+          )}
+        >
           <div style={styles.addressAndTimeInnerContainer}>
             <div style={styles.time}>
               {'Delivery, ASAP (50-60 min)'}
             </div>
-            <div style={styles.address}>
-              {'To: Home Address'}
+            <div style={!defaultAddress && styles.addressUnavailable || {}}>
+              {
+                !defaultAddress ? 'Click To Enter Address' : (
+                  'To: ' + defaultAddress.fullAddress
+                )
+              }
             </div>
           </div>
-          <FlatButton label={'Change'} style={styles.changeButton}/>
+          <FlatButton
+            hoverColor={'white'}
+            label={'Change'}
+            style={styles.changeButton}
+          />
         </div>
         <div style={styles.cartBody}>
           <div style={styles.cartItems}>
@@ -97,6 +115,7 @@ class Cart extends Component {
 
 const styles = {
   addressAndTime: {
+    cursor: 'pointer',
     display: 'flex',
     margin: 10,
   },
@@ -104,6 +123,11 @@ const styles = {
     display: 'flex',
     flex: 3,
     flexDirection: 'column',
+    margin: 10,
+  },
+  addressUnavailable: {
+    color: '#399',
+    transition: 'color .2s ease',
   },
   cartBody: {
     overflowY: 'auto',
@@ -241,11 +265,14 @@ const mapStateToProps = (state) => {
   return {
     cart: state.cart,
     items: state.items,
+    user: state.user,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    processAddressComponents: (addressComponents) => dispatch(actions.processAddressComponents(addressComponents)),
+    showChangeAddressDialog: (form) => dispatch(actions.showChangeAddressDialog(form)),
     showEditItemInCartDialog: (cartItemId, form) => dispatch(actions.showEditItemInCartDialog(cartItemId, form)),
     showEmptyCartDialog: () => dispatch(actions.showEmptyCartDialog()),
     showRemoveItemDialog: (cartItemId) => dispatch(actions.showRemoveItemDialog(cartItemId)),
