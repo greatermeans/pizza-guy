@@ -14,6 +14,9 @@ export default (currentState, action) => {
       let requests = updatedState.requests || {}
       requests[action.requestId] = true
       updatedState.requests = requests
+      let requested = updatedState.requested || {}
+      requested[action.requestId] = true
+      updatedState.requested = requested
       break
   }
 

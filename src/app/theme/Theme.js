@@ -25,9 +25,11 @@ const Theme = {
     gray700: '#616161',
     gray800: '#424242',
     gray900: '#212121',
-  }
+  },
+  spacer: 16,
 }
 
+exports.spacer = Theme.spacer
 exports.palette = Theme.palette
 exports.fontFamily = Theme.fontFamily
 exports.default = Theme

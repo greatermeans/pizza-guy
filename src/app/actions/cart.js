@@ -41,7 +41,9 @@ export default {
   getCartItems: () => {
     return (dispatch, getState) => {
       const auth = getState().auth
+      dispatch(actions.startDataRequest('cartItems'))
       firebaseService.subscribe(`cart/${auth.uid}`, (result) => {
+        dispatch(actions.endDataRequest('cartItems'))
         const cartItems = result.val() || {}
         dispatch({
           type: A.SET_CART_ITEMS,

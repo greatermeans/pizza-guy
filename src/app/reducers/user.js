@@ -6,6 +6,7 @@ export default (currentState, action) => {
   switch (action.type) {
     case A.SET_USER_ADDRESSES:
       updatedState.addresses = action.addresses
+      updatedState.defaultAddressId = action.defaultAddressId
       break
   }
 

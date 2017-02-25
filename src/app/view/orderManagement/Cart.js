@@ -3,7 +3,7 @@ import { connect, } from 'react-redux'
 import { Divider, FlatButton, RaisedButton, } from 'material-ui'
 import actions from '../../actions'
 import AddItemToCartForm from './AddItemToCartForm'
-import ChangeAddressForm from './ChangeAddressForm'
+import ChangeAddressForm from '../userManagement/ChangeAddressForm'
 import ContentRemoveCircle from 'material-ui/svg-icons/content/remove-circle'
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit'
 import emptyCart from '../../images/emptyCart.png'
@@ -12,14 +12,12 @@ import _ from 'lodash'
 class Cart extends Component {
   render() {
     const { cartItems, cartTotal, taxRate, } = this.props.cart
-    const { addresses, } = this.props.user
-    const defaultAddress = Object.keys(addresses).length &&
-      addresses[Object.keys(addresses)[0]]
+    const { addresses, defaultAddressId, } = this.props.user
 
     return (
       <div style={styles.cartContainer}>
         <div style={styles.cartTitle}>Your Cart</div>
-        <Divider style={styles.divider} />
+        <Divider/>
         <div
           style={styles.addressAndTime}
           onClick={() => this.props.showChangeAddressDialog(
@@ -30,10 +28,10 @@ class Cart extends Component {
             <div style={styles.time}>
               {'Delivery, ASAP (50-60 min)'}
             </div>
-            <div style={!defaultAddress && styles.addressUnavailable || {}}>
+            <div style={!defaultAddressId && styles.addressUnavailable || {}}>
               {
-                !defaultAddress ? 'Click To Enter Address' : (
-                  'To: ' + defaultAddress.fullAddress
+                !defaultAddressId ? 'Click To Enter Address' : (
+                  'To: ' + addresses[defaultAddressId].fullAddress
                 )
               }
             </div>
@@ -44,70 +42,75 @@ class Cart extends Component {
             style={styles.changeButton}
           />
         </div>
-        <div style={styles.cartBody}>
-          <div style={styles.cartItems}>
-          {
-            !Object.keys(cartItems).length ?
-            <img style={styles.emptyCartImage} src={ emptyCart }/> :
-            Object.keys(cartItems).map(cartItemId => {
-              let { itemCost, itemId, itemName, itemType, quantity, } = cartItems[cartItemId]
-              return (
-                <div style={styles.itemContainer} key={itemId + ':' + itemType}>
-                  <ContentRemoveCircle
-                    style={styles.itemRemove}
-                    onClick={() => this.props.showRemoveItemDialog(cartItemId)}
-                  />
-                  <span style={styles.itemQuantity}>{quantity}</span>
-                  <div style={styles.itemNameContainer}>
-                    <span
-                      style={styles.itemName}
-                      onClick={
-                        () => this.props.showEditItemInCartDialog(cartItemId, <AddItemToCartForm/>)
-                      }
-                    >
-                      {itemName}<EditorModeEdit style={styles.editItemButton}/>
-                    </span>
-                    <ul style={styles.itemDescription}>
-                      <li>
-                        {_.capitalize(itemType)}
-                      </li>
-                    </ul>
+        <Divider/>
+        { !Object.keys(cartItems).length ?
+          <img style={styles.emptyCartImage} src={ emptyCart }/> :
+          <div style={styles.cartBody}>
+            <div style={styles.cartItems}>
+            {
+              Object.keys(cartItems).map(cartItemId => {
+                let { itemCost, itemId, itemName, itemType, quantity, } = cartItems[cartItemId]
+                return (
+                  <div style={styles.itemContainer} key={itemId + ':' + itemType}>
+                    <ContentRemoveCircle
+                      style={styles.itemRemove}
+                      onClick={() => this.props.showRemoveItemDialog(cartItemId)}
+                    />
+                    <span style={styles.itemQuantity}>{quantity}</span>
+                    <div style={styles.itemNameContainer}>
+                      <span
+                        style={styles.itemName}
+                        onClick={
+                          () => this.props.showEditItemInCartDialog(cartItemId, <AddItemToCartForm/>)
+                        }
+                      >
+                        {itemName}<EditorModeEdit style={styles.editItemButton}/>
+                      </span>
+                      <ul style={styles.itemDescription}>
+                        <li>
+                          {_.capitalize(itemType)}
+                        </li>
+                      </ul>
+                    </div>
+                    <span style={styles.itemPrice}>{itemCost}</span>
                   </div>
-                  <span style={styles.itemPrice}>{itemCost}</span>
-                </div>
-              )
-            })
-          }
+                )
+              })
+            }
+            </div>
+            <Divider style={styles.divider} />
+            <div style={styles.totalsLines}>
+              <div style={styles.totalLineName}>Items Subtotal:</div>
+              <div style={styles.totalLineAmount}>{cartTotal}</div>
+            </div>
+            <div style={styles.totalsLines}>
+              <div style={styles.totalLineName}>Sales Tax:</div>
+              <div style={styles.totalLineAmount}>{cartTotal * taxRate}</div>
+            </div>
+            <div style={styles.totalsLines}>
+              <div style={styles.totalLineName}>Total:</div>
+              <div style={styles.totalLineAmount}>{cartTotal * (1 + taxRate)}</div>
+            </div>
+            <FlatButton
+              style={styles.clearCartButton}
+              label={'Clear Cart'}
+              hoverColor={'white'}
+              onClick={this.props.showEmptyCartDialog}
+            />
           </div>
-          <Divider style={styles.divider} />
-          <div style={styles.totalsLines}>
-            <div style={styles.totalLineName}>Items Subtotal:</div>
-            <div style={styles.totalLineAmount}>{cartTotal}</div>
+        }
+        <Divider/>
+        {
+          !Object.keys(cartItems).length ? null :
+          <div style={styles.cartFooter}>
+            <RaisedButton
+              label={'Proceed to Checkout: ' + (cartTotal * (1 + taxRate))}
+              onClick={this.props.handleCheckoutProcess}
+              primary
+              style={styles.checkoutButton}
+            />
           </div>
-          <div style={styles.totalsLines}>
-            <div style={styles.totalLineName}>Sales Tax:</div>
-            <div style={styles.totalLineAmount}>{cartTotal * taxRate}</div>
-          </div>
-          <div style={styles.totalsLines}>
-            <div style={styles.totalLineName}>Total:</div>
-            <div style={styles.totalLineAmount}>{cartTotal * (1 + taxRate)}</div>
-          </div>
-          <FlatButton
-            style={styles.clearCartButton}
-            label={'Clear Cart'}
-            hoverColor={'white'}
-            onClick={this.props.showEmptyCartDialog}
-          />
-        </div>
-        <Divider style={styles.divider} />
-        <div style={styles.cartFooter}>
-          <RaisedButton
-            label={'Proceed to Checkout: ' + (cartTotal * (1 + taxRate))}
-            onClick={() => {}} //needs to change
-            primary
-            style={styles.checkoutButton}
-          />
-        </div>
+        }
       </div>
     )
   }
@@ -178,10 +181,6 @@ const styles = {
   clearCartButton: {
     color: 'blue',
     textAlign: '-webkit-auto',
-  },
-  divider: {
-    marginTop: 15,
-    marginBottom: 15,
   },
   editItemButton: {
     height: 18,
@@ -271,6 +270,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    handleCheckoutProcess: () => dispatch(actions.handleCheckoutProcess()),
     processAddressComponents: (addressComponents) => dispatch(actions.processAddressComponents(addressComponents)),
     showChangeAddressDialog: (form) => dispatch(actions.showChangeAddressDialog(form)),
     showEditItemInCartDialog: (cartItemId, form) => dispatch(actions.showEditItemInCartDialog(cartItemId, form)),

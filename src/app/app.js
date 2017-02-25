@@ -40,7 +40,7 @@ render(
   <Provider store={store}>
     <MuiThemeProvider>
       <StyleRoot>
-        <Router onUpdate={() => window.scrollTo(0, 0)} history={history}>
+        <Router onUpdate={() => store.dispatch(actions.handleRouteChange())} history={history}>
           {Routes}
         </Router>
       </StyleRoot>

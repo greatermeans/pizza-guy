@@ -3,7 +3,6 @@ import Config from '../config'
 import A from '../const/actionTypes'
 import actions from '.'
 import store from '../store'
-import axios from 'axios'
 
 const onAuthData = (authData, dispatch, getState) => {
   if (authData.uid) {
@@ -33,16 +32,14 @@ const onAuthData = (authData, dispatch, getState) => {
     dispatch({
       type: A.LOGOUT,
     })
-    dispatch(actions.routeTo(''))
   }
 }
 
 const onTokenAvailable = (token, dispatch, getState) => {
-  axios.defaults.headers.common['Authorization'] = token
   dispatch({
     type: A.SET_TOKEN_CONFIGURED,
   })
-  dispatch(actions.routeAuthenticatedUser())
+  dispatch(actions.handleRouteChange())
 }
 
 export default {
@@ -92,8 +89,10 @@ export default {
   },
   logout: (error) => {
     return (dispatch, getState) => {
-      axios.defaults.headers.common['Authorization'] = null
       firebase.auth().signOut()
+      dispatch({
+        type: A.LOGOUT,
+      })
       if (error) {
         dispatch({
           type: A.DISPLAY_AUTH_ERROR,

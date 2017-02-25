@@ -4,16 +4,45 @@ import actions from '.'
 // import P from '../const/paramTypes'
 
 export default {
-  routeAuthenticatedUser: () => {
+  handleRouteChange: () => {
     return (dispatch, getState) => {
-      const { route, } = getState().routeParams
-      dispatch(actions.getUserAddresses())
-      dispatch(actions.getCategories())
-      dispatch(actions.getItems())
-      dispatch(actions.getCartItems())
-      if (route !== 'order') {
-        dispatch(actions.routeTo('order'))
+      const { auth, routeParams, UI, } = getState()
+      if (auth.uid) {
+        if (routeParams.route === '') {
+          dispatch(actions.navigateToOrderView())
+        }
+        if (
+          routeParams.route === 'order' ||
+          routeParams.route === 'checkout' ||
+          routeParams.route === 'confirmAddress'
+        ) {
+          if (!(UI.requested || {})['addresses']) {
+            dispatch(actions.getUserAddresses())
+          }
+          if (!(UI.requested || {})['cartItems']) {
+            dispatch(actions.getCartItems())
+          }
+          if (!(UI.requested || {})['categories']) {
+            dispatch(actions.getCategories())
+          }
+          if (!(UI.requested || {})['items']) {
+            dispatch(actions.getItems())
+          }
+        }
+
+        if (routeParams.route === 'logout') {
+          dispatch(actions.logout())
+          dispatch(actions.routeTo(''))
+        }
+
       }
+    }
+  },
+  navigateToOrderView: () => {
+    return (dispatch, getState) => {
+      dispatch(actions.routeTo(
+        'order'
+      ))
     }
   },
 }

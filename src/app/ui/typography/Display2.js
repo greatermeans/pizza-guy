@@ -18,7 +18,7 @@ const defaultStyles = {
   fontSize: 45,
   fontWeight: 400,
   lineHeight: '48px',
-  marginBottom: 21,
+  marginBottom: 3,
 }
 
 export default Radium(Display2)

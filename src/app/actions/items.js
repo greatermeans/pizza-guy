@@ -1,11 +1,13 @@
 import A from '../const/actionTypes'
-import firebaseService from '../infrastructure/FirebaseService'
 import actions from '.'
+import firebaseService from '../infrastructure/FirebaseService'
 
 export default {
   getItems: () => {
     return (dispatch, getState) => {
+      dispatch(actions.startDataRequest('items'))
       firebaseService.subscribe('items', (result) => {
+        dispatch(actions.endDataRequest('items'))
         const items = result.val() || {}
         dispatch({
           type: A.SET_ITEMS,

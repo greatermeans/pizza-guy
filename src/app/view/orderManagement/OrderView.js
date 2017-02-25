@@ -9,7 +9,7 @@ class OrderView extends Component {
   render() {
     const { categorizedItems, } = this.props.items
     return (
-      <div style={styles.orderviewContainer}>
+      <div style={styles.orderViewContainer}>
         <div style={styles.categorizedItems}>
           {
             categorizedItems && categorizedItems.length ? (
@@ -35,7 +35,7 @@ const styles = {
     flex: 4,
     overflowY: 'auto',
   },
-  orderviewContainer: {
+  orderViewContainer: {
     display: 'flex',
     flexWrap: 'wrap',
   }
